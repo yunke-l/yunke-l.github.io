@@ -1,0 +1,39 @@
+body {background-color: #D6E4F0;}
+hr {
+  border-top-style: dotted;
+  border-left-style: none;
+  border-right-style: none;
+  border-bottom-style: none;
+  border-top-width: 5px;
+  border-top-color: #86C6F4;}
+  h1 {color: #163172; }
+  h2 {color: #163172; }
+  summary {color: #7C99AC;
+  font-weight: bold;}
+  summary:hover {
+    color: #395B64;
+    font-weight: bold;
+    font-size: larger;
+  }
+  a:hover {
+    font-weight: bold;
+    color:#1E56A0;
+  }
+/******************************CLASS SELECTOR******************************/
+  .education {
+    color:#2C394B;
+    font-family: Georgia, serif;
+    line-height: 150%;
+  }
+
+  .career {
+    color:#2C394B;
+    font-family: Georgia, serif;
+      line-height: 150%;
+  }
+
+.honors {
+  color:#2C394B;
+  font-family: Georgia, serif;
+    line-height: 150%;
+}
