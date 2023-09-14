@@ -3,6 +3,7 @@
 [maintainers]: https://img.shields.io/badge/maintainers-4-success.svg 'Number of maintainers'
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
+
 [![deploy](https://github.com/alshedivat/al-folio/actions/workflows/deploy.yml/badge.svg)](https://github.com/alshedivat/al-folio/actions/workflows/deploy.yml)
 [![demo](https://img.shields.io/badge/theme-demo-brightgreen.svg)](https://alshedivat.github.io/al-folio/)
 [![GitHub contributors](https://img.shields.io/github/contributors/alshedivat/al-folio.svg)](https://github.com/alshedivat/al-folio/graphs/contributors/)
