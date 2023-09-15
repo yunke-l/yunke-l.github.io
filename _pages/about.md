@@ -26,7 +26,7 @@ social: true  # includes social icons at the bottom of the page
 
 My name is Yunke Li (李云珂). I am a 2nd-year MS in Computer Science student at [Northeastern University](https://vancouver.northeastern.edu/academic_program/align-master-of-science-in-computer-science/).  
  
-I am legally eligible for full-time employment in Canada and actively seeking **regular or co-op internships**. 
+I am legally eligible for full-time employment in Canada and actively seeking **regular or CO-OP internships**. 
  
 💻 I'm enthusiastic about software and web development. With a solid foundation in Java, Python, and JavaScript, I'm ready to tackle exciting projects and collaborate with driven teams!  
 
@@ -35,4 +35,4 @@ I am legally eligible for full-time employment in Canada and actively seeking **
 
 [//]: # (I received my bachelor's degree in Nuclear Engineering at [Shanghai Jiao Tong University]&#40;http://en.sjtu.edu.cn/&#41; in 2019.)
 
-Please refer to my [curriculum vitae](./assets/pdf/CV_YunkeLi.pdf) if you are interested. 
+Please refer to my [Curriculum Vitae](./assets/pdf/CV_YunkeLi.pdf) if you are interested. 

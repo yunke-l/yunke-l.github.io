@@ -1,16 +1,14 @@
 ---
 layout: page
-title: project 1
-description: a project with a background image
+title: Movie Reviewer Website
+description: A functional, user-friendly platform for film enthusiasts to engage in film critique.
 img: assets/img/12.jpg
 importance: 1
-category: work
+category: Web Development Project
 related_publications: einstein1956investigations, einstein1950meaning
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+This is a feature-rich movie reviewer website using **React.js** for the front end and **Node.js** with **MongoDB** for the back end. Integrated the **IMDb API** for an extensive movie database.
 
 To give your project a background in the portfolio page, just add the img tag to the front matter like so:
 
