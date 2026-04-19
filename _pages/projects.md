@@ -1,58 +1,42 @@
 ---
 layout: page
-title: projects
+title: Work
 permalink: /projects/
-# description: A growing collection of your cool projects.
+description: Selected software and engineering projects by Yunke Li.
 nav: true
 nav_order: 2
-display_categories: [Web Development Project, Engineering Programming Projects]
-horizontal: false
 ---
 
-<!-- pages/projects.md -->
-<div class="projects">
-{%- if site.enable_project_categories and page.display_categories %}
-  <!-- Display categorized projects -->
-  {%- for category in page.display_categories %}
-  <h2 class="category">{{ category }}</h2>
-  {%- assign categorized_projects = site.projects | where: "category", category -%}
-  {%- assign sorted_projects = categorized_projects | sort: "importance" %}
-  <!-- Generate cards for each project -->
-  {% if page.horizontal -%}
-  <div class="container">
-    <div class="row row-cols-2">
-    {%- for project in sorted_projects -%}
-      {% include projects_horizontal.html %}
-    {%- endfor %}
-    </div>
-  </div>
-  {%- else -%}
-  <div class="grid">
-    {%- for project in sorted_projects -%}
-      {% include projects.html %}
-    {%- endfor %}
-  </div>
-  {%- endif -%}
-  {% endfor %}
+{% assign sorted_projects = site.projects | sort: "importance" %}
 
-{%- else -%}
-<!-- Display projects without categories -->
-  {%- assign sorted_projects = site.projects | sort: "importance" -%}
-  <!-- Generate cards for each project -->
-  {% if page.horizontal -%}
-  <div class="container">
-    <div class="row row-cols-2">
-    {%- for project in sorted_projects -%}
-      {% include projects_horizontal.html %}
-    {%- endfor %}
+<div class="work-intro">
+  <p class="section-kicker">Selected Work</p>
+  <h2>Projects across web applications, backend services, robotics, and data analysis.</h2>
+  <p>These projects reflect the environments I enjoy most: practical product work, clean interfaces, and engineering challenges with real constraints.</p>
+</div>
+
+<div class="work-list">
+  {% for project in sorted_projects %}
+  <article class="work-listing">
+    <div class="work-listing__media">
+      {% if project.img %}
+      <img src="{{ project.img | relative_url }}" alt="{{ project.title }}">
+      {% endif %}
     </div>
-  </div>
-  {%- else -%}
-  <div class="grid">
-    {%- for project in sorted_projects -%}
-      {% include projects.html %}
-    {%- endfor %}
-  </div>
-  {%- endif -%}
-{%- endif -%}
+    <div class="work-listing__content">
+      <p class="work-listing__meta">{{ project.role }}{% if project.year %} / {{ project.year }}{% endif %}</p>
+      <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
+      <p>{{ project.description }}</p>
+      {% if project.stack %}
+      <p class="work-listing__stack">{{ project.stack }}</p>
+      {% endif %}
+      <div class="work-listing__actions">
+        <a href="{{ project.url | relative_url }}">Read case study</a>
+        {% if project.github %}
+        <a href="{{ project.github }}">View repository</a>
+        {% endif %}
+      </div>
+    </div>
+  </article>
+  {% endfor %}
 </div>

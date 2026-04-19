@@ -2,26 +2,34 @@
 layout: default
 ---
 <!-- page.html -->
-        <div class="post">
+        <div class="post {% if page.collection == 'projects' %}project-post{% endif %}">
 
           <header class="post-header">
+            {% if page.collection == 'projects' %}
+            <p class="post-eyebrow">Case Study</p>
+            {% endif %}
             <h1 class="post-title">{{ page.title }}</h1>
             <p class="post-description">{{ page.description }}</p>
+            {% if page.collection == 'projects' %}
+            <div class="project-meta">
+              {% if page.role %}
+              <span>{{ page.role }}</span>
+              {% endif %}
+              {% if page.stack %}
+              <span>{{ page.stack }}</span>
+              {% endif %}
+              {% if page.year %}
+              <span>{{ page.year }}</span>
+              {% endif %}
+            </div>
+            {% endif %}
           </header>
 
           <article>
+            {%- if page.collection == 'projects' and page.img -%}
+            {% include figure.html path=page.img alt=page.title class="img-fluid project-cover" %}
+            {%- endif -%}
             {{ content }}
           </article>
 
-          {%- if page.related_publications != null and page.related_publications.size > 0 -%}
-          {% assign publications = page.related_publications | replace: ", ", "," | split: "," | join: "|" %}
-          <h2>References</h2>
-          <div class="publications">
-            {% bibliography -f {{ site.scholar.bibliography }} -q @*[key^={{ publications }}]* %}
-          </div>
-          {%- endif %}
-
-          {%- if site.giscus.repo and page.giscus_comments -%}
-            {% include giscus.html %}
-          {%- endif -%}
         </div>

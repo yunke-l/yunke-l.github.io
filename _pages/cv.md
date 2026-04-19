@@ -1,10 +1,10 @@
 ---
 layout: page
-title: CV
+title: Resume
 permalink: ./assets/pdf/CV_YunkeLi.pdf
-description: Curriculum Vitae
+description: Resume
 nav: true
-nav_order: 0
+nav_order: 3
 ---
 
 <!-- 

@@ -1,0 +1,164 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { currentExperience, education, researchHighlight, site, skillGroups } from "../data/site";
+---
+
+<BaseLayout title="Home">
+  <section class="hero">
+    <div class="shell hero__grid">
+      <div class="hero__content">
+        <p class="eyebrow">Yunke Li</p>
+        <h1>Frontend / Product Engineering</h1>
+        <p class="hero__lead">
+          MS in Computer Science at
+          <a href="https://vancouver.northeastern.edu/academic_program/align-master-of-science-in-computer-science/">
+            Northeastern University
+          </a>
+          , building fast, usable interfaces with strong engineering underneath.
+        </p>
+        <div class="hero__actions">
+          <a class="button button--primary" href="/resume">View Resume</a>
+          <a class="button button--secondary" href={site.resume}>Download Resume</a>
+        </div>
+        <ul class="signal-list">
+          <li>{site.workAuthorization}</li>
+          <li>{currentExperience.title} at Shenzhen Neostar Smart Technology Ltd.</li>
+          <li>React, React Native, TypeScript, Node.js, Python.</li>
+        </ul>
+      </div>
+      <div class="hero__visual">
+        <div class="orbital-frame">
+          <div class="orbital-frame__glow"></div>
+          <img src="/assets/img/avatar.jpeg" alt="Portrait of Yunke Li" class="orbital-frame__portrait" />
+          <div class="orbital-frame__ring orbital-frame__ring--one"></div>
+          <div class="orbital-frame__ring orbital-frame__ring--two"></div>
+          <div class="orbital-frame__panel orbital-frame__panel--top">UI systems / interaction detail / delivery</div>
+          <div class="orbital-frame__panel orbital-frame__panel--bottom">React Node.js APIs performance DX</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-heading">
+      <p class="eyebrow">Skills</p>
+      <h2>Core Skills.</h2>
+      <p>Frontend depth, practical backend tools, and multilingual communication.</p>
+    </div>
+    <div class="info-grid">
+      {skillGroups.map((group) => (
+        <article>
+          <h3>{group.title}</h3>
+          <p>{group.items}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-heading">
+      <p class="eyebrow">Current Work</p>
+      <h2>Current Work.</h2>
+      <p>Cross-platform frontend delivery across web, mobile, and classroom-scale product features.</p>
+    </div>
+    <article class="spotlight-panel spotlight-panel--experience">
+      <div class="spotlight-panel__glow"></div>
+      <div class="spotlight-panel__header">
+        <div>
+          <p class="meta">{currentExperience.period}</p>
+          <h3>{currentExperience.title}</h3>
+          <p class="spotlight-panel__subtitle">{currentExperience.company}</p>
+        </div>
+        <p class="feature-card__location">{currentExperience.location}</p>
+      </div>
+      <p class="spotlight-panel__lead">
+        Shipping cross-platform product features with reusable systems, real-time sync, and strong interaction quality.
+      </p>
+      <div class="spotlight-panel__stats">
+        <span>React + React Native</span>
+        <span>NPM module system</span>
+        <span>~5,000 devices</span>
+        <span>TypeScript + Taro</span>
+      </div>
+      <ul class="feature-list">
+        {currentExperience.highlights.map((highlight) => (
+          <li>{highlight}</li>
+        ))}
+      </ul>
+    </article>
+  </section>
+
+  <section class="section shell">
+    <div class="section-heading">
+      <p class="eyebrow">Research</p>
+      <h2>Research Project.</h2>
+      <p>Published capstone work completed during my master's program.</p>
+    </div>
+    <article class="spotlight-panel spotlight-panel--research">
+      <div class="spotlight-panel__glow"></div>
+      <div class="spotlight-panel__header">
+        <div>
+          <p class="meta">{researchHighlight.period}</p>
+          <h3>{researchHighlight.title}</h3>
+          <p class="spotlight-panel__subtitle">{researchHighlight.subtitle}</p>
+        </div>
+      </div>
+      <p class="spotlight-panel__lead">
+        Comparative work on smaller and larger language models for customer review analysis under different resource constraints.
+      </p>
+      <div class="spotlight-panel__stats">
+        <span>distilBERT</span>
+        <span>ELECTRA</span>
+        <span>Flan-T5</span>
+        <span>Flan-UL2</span>
+      </div>
+      <ul class="feature-list">
+        {researchHighlight.highlights.map((highlight) => (
+          <li>{highlight}</li>
+        ))}
+      </ul>
+      <div class="meta-pills">
+        <a href={researchHighlight.links.code}>Code</a>
+        <a href={researchHighlight.links.poster}>Poster</a>
+        <a href={researchHighlight.links.paper}>Paper</a>
+      </div>
+    </article>
+  </section>
+
+  <section class="section shell">
+    <div class="section-heading">
+      <p class="eyebrow">Education</p>
+      <h2>Education.</h2>
+      <p>Academic background across computer science, engineering, and systems thinking.</p>
+    </div>
+    <div class="timeline-grid">
+      {education.map((item) => (
+        <article>
+          <span>{item.period}</span>
+          <h3>{item.school}</h3>
+          <p>{item.degree}</p>
+          {item.meta && <p>{item.meta}</p>}
+          <p>{item.location}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section shell section--contact">
+    <div class="section-heading">
+      <p class="eyebrow">Contact</p>
+      <h2>Get in Touch.</h2>
+      <p>Based in Vancouver and open to frontend or product engineering opportunities.</p>
+    </div>
+    <div class="meta-pills">
+      <span>{site.phone}</span>
+      <span>{site.location}</span>
+      <span>{site.workAuthorization}</span>
+    </div>
+    <div class="hero__actions">
+      <a class="button button--primary" href={`mailto:${site.email}`}>{site.email}</a>
+      <a class="button button--secondary" href={site.github}>GitHub</a>
+      <a class="button button--secondary" href={site.linkedin}>LinkedIn</a>
+    </div>
+  </section>
+</BaseLayout>

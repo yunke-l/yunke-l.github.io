@@ -9,4 +9,6 @@ _site
 .tweet-cache
 Gemfile.lock
 vendor
-
+node_modules
+dist
+.astro

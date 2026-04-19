@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { githubRepos, site } from "../data/site";
+---
+
+<BaseLayout title="GitHub">
+  <section class="page-hero shell">
+    <p class="eyebrow">GitHub</p>
+    <h1>Code on GitHub.</h1>
+    <p class="page-hero__lead">
+      Repositories that connect most directly to this portfolio.
+    </p>
+    <div class="hero__actions">
+      <a class="button button--primary" href={site.github}>Open GitHub Profile</a>
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="repo-grid">
+      {githubRepos.map((repo) => (
+        <a class="repo-card" href={`https://github.com/${repo}`}>
+          <p class="meta">Repository</p>
+          <h3>{repo.split("/")[1]}</h3>
+          <p>{repo}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

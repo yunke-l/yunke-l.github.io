@@ -11,7 +11,6 @@ let toggleTheme = (theme) => {
 let setTheme = (theme) => {
   transTheme();
   setHighlight(theme);
-  setGiscusTheme(theme);
 
   if (theme) {
     document.documentElement.setAttribute("data-theme", theme);
@@ -25,35 +24,11 @@ let setTheme = (theme) => {
         tables[i].classList.remove("table-dark");
       }
     }
-
-    // Set jupyter notebooks themes.
-    let jupyterNotebooks = document.getElementsByClassName("jupyter-notebook-iframe-container");
-    for (let i = 0; i < jupyterNotebooks.length; i++) {
-      let bodyElement = jupyterNotebooks[i].getElementsByTagName("iframe")[0].contentWindow.document.body;
-      if (theme == "dark") {
-        bodyElement.setAttribute("data-jp-theme-light", "false");
-        bodyElement.setAttribute("data-jp-theme-name", "JupyterLab Dark");
-      } else {
-        bodyElement.setAttribute("data-jp-theme-light", "true");
-        bodyElement.setAttribute("data-jp-theme-name", "JupyterLab Light");
-      }
-    }
-
   } else {
     document.documentElement.removeAttribute("data-theme");
   }
 
   localStorage.setItem("theme", theme);
-
-  // Updates the background of medium-zoom overlay.
-  if (typeof medium_zoom !== "undefined") {
-    medium_zoom.update({
-      background:
-        getComputedStyle(document.documentElement).getPropertyValue(
-          "--global-bg-color"
-        ) + "ee", // + 'ee' for trasparency.
-    });
-  }
 };
 
 let setHighlight = (theme) => {
@@ -64,20 +39,6 @@ let setHighlight = (theme) => {
     document.getElementById("highlight_theme_dark").media = "none";
     document.getElementById("highlight_theme_light").media = "";
   }
-};
-
-let setGiscusTheme = (theme) => {
-  function sendMessage(message) {
-    const iframe = document.querySelector("iframe.giscus-frame");
-    if (!iframe) return;
-    iframe.contentWindow.postMessage({ giscus: message }, "https://giscus.app");
-  }
-
-  sendMessage({
-    setConfig: {
-      theme: theme,
-    },
-  });
 };
 
 let transTheme = () => {
