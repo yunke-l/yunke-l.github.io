@@ -1,0 +1,102 @@
+---
+import { getCollection } from "astro:content";
+import Icon from "./Icon.astro";
+import ProjectCard from "./ProjectCard.astro";
+import Portrait from "./Portrait.astro";
+import SocialIcon from "./SocialIcon.astro";
+import MessageFile from "./MessageFile.astro";
+import ResumeFile from "./ResumeFile.astro";
+import RepositoriesFile from "./RepositoriesFile.astro";
+import { currentExperience, education, homeTechnologies, researchHighlight, site, skillGroups } from "../data/site";
+
+const projects = (await getCollection("projects"))
+  .sort((a, b) => a.data.importance - b.data.importance)
+  .filter((project) => ["movie-reviewer-web-app", "park-fountain-explorer"].includes(project.slug));
+---
+
+  <section id="about" class="workspace-pane" data-workspace-pane data-filename="about.md" aria-labelledby="about-title">
+    <div class="home-hero">
+      <div class="home-hero__intro">
+        <p class="eyebrow">// Engineering meets curiosity</p>
+        <h1 id="about-title">Hello, world.<br />I'm <span class="accent-text">Yunke.</span></h1>
+        <p class="hero-description">I turn ideas into thoughtful interfaces.<br />Building for web and mobile, with care for the details that make products feel right.</p>
+        <div class="hero__actions">
+          <a class="button button--primary" href="/#work" data-workspace-file="work">Explore my work<Icon name="arrow" /></a>
+          <a class="button button--paper" href={site.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Let's connect on LinkedIn (opens in a new tab)"><SocialIcon name="linkedin" />Let's connect</a>
+        </div>
+        <div class="tech-tags home-technologies" aria-label="Technologies I work with">{homeTechnologies.map((technology) => <span>{technology}</span>)}</div>
+      </div>
+      <div class="profile-code" aria-label="Developer profile">
+        <div class="profile-code__header"><span><span class="file-type" aria-hidden="true">TS</span>profile.ts</span><span>TypeScript</span></div>
+        <div class="profile-identity">
+          <Portrait />
+          <div><p class="profile-identity__name">{site.name}</p><p>{currentExperience.title}</p><span>Vancouver, BC</span></div>
+        </div>
+        <pre><code><span class="syntax-keyword">const</span> developer = &#123;
+  <span class="syntax-property">name</span>: <span class="syntax-string">'{site.name}'</span>,
+  <span class="syntax-property">basedIn</span>: <span class="syntax-string">'Vancouver'</span>,
+  <span class="syntax-property">craft</span>: [
+    <span class="syntax-string">'Frontend'</span>,
+    <span class="syntax-string">'Product engineering'</span>
+  ],
+  <span class="syntax-property">mindset</span>: <span class="syntax-string">'Keep building'</span>
+&#125;;</code></pre>
+        <div class="profile-code__footer">Turning curiosity into working software.</div>
+      </div>
+    </div>
+    <div class="about-notes">
+      <div><p class="eyebrow">// Background</p><p>{education[0].degree}<br /><span>{education[0].school}</span></p></div>
+      <div><p class="eyebrow">// Open to what's next</p><p>Frontend & product engineering<br /><span>{site.workAuthorization}</span></p></div>
+      <a class="text-link" href="/resume/">Read my resume<Icon name="arrow" /></a>
+    </div>
+  </section>
+
+  <section id="work" class="workspace-pane" data-workspace-pane data-filename="work.tsx" aria-labelledby="work-title">
+    <p class="eyebrow">// Selected work</p>
+    <h1 class="pane-title" id="work-title">From ideas to <span class="accent-text">interfaces.</span></h1>
+    <p class="page-lead">Cross-platform product engineering, reusable systems, and details that make the experience feel right.</p>
+    <article class="experience-panel">
+      <div class="feature-card__header"><div><p class="meta">{currentExperience.period}</p><h2>{currentExperience.title}</h2><p>{currentExperience.company}</p></div><p class="feature-card__location">{currentExperience.location}</p></div>
+      <div class="experience-signal">
+        <p class="experience-signal__label">English-learning platform</p>
+        <div class="experience-signal__stat"><span class="experience-signal__number">∼30,000</span><p>student tablets</p></div>
+        <div class="experience-signal__stat"><span class="experience-signal__number">∼8,000</span><p>daily active devices<br />at peak</p></div>
+      </div>
+      <ul class="work-highlights" aria-label="Engineering contributions">
+        {currentExperience.workAreas.map((area, index) => (
+          <li class="work-highlight">
+            <div class="work-highlight__meta"><span class="work-highlight__number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><span>{area.stack}</span></div>
+            <h3>{area.title}</h3>
+            <p>{area.description}</p>
+          </li>
+        ))}
+      </ul>
+    </article>
+    <div class="section-heading section-heading--row"><div><p class="eyebrow">// Built & explored</p><h2>Selected projects</h2></div><a href="/projects/" class="text-link">All projects<Icon name="arrow" /></a></div>
+    <div class="project-grid">
+      {projects.map((project) => <ProjectCard href={`/projects/${project.slug}/`} {...project.data} />)}
+    </div>
+    <details class="skills-details"><summary>Tools I build with<span aria-hidden="true">+</span></summary><div class="info-grid">{skillGroups.map((group) => <article><h3>{group.title}</h3><p>{group.items}</p></article>)}</div></details>
+  </section>
+
+  <section id="research" class="workspace-pane" data-workspace-pane data-filename="research.py" aria-labelledby="research-title">
+    <p class="eyebrow">// Research & experiments</p>
+    <h1 class="pane-title" id="research-title">Small models.<br /><span class="accent-text">Big questions.</span></h1>
+    <p class="page-lead">{researchHighlight.subtitle}: exploring the balance between model accuracy and efficiency in customer review analysis.</p>
+    <div class="tech-tags"><span>PyTorch</span><span>distilBERT</span><span>ELECTRA</span><span>Flan-T5</span><span>Flan-UL2</span></div>
+    <article class="research-panel">
+      <p class="meta">{researchHighlight.period}</p><h2>{researchHighlight.title}</h2>
+      <ul class="feature-list">{researchHighlight.highlights.map((highlight) => <li>{highlight}</li>)}</ul>
+          <div class="hero__actions"><a class="button button--primary" href={researchHighlight.links.code}>Explore the code<Icon name="arrow" /></a><a class="button button--paper" href={researchHighlight.links.paper}>Read paper<Icon name="arrow" /></a></div>
+    </article>
+    <div class="section-heading"><p class="eyebrow">// Project poster</p></div>
+    <figure class="research-poster">
+      <a class="research-poster__preview" href={researchHighlight.links.poster} target="_blank" rel="noopener noreferrer" aria-label="Open the full SLMs vs. LLMs research poster (PDF, opens in a new tab)">
+        <img src="/assets/img/research/slms-vs-llms-poster.webp" alt="SLMs vs. LLMs project poster showing the research methodology, hybrid model architecture, and results for sentiment classification and correlation analysis." width="2600" height="1463" loading="lazy" decoding="async" />
+      </a>
+      <figcaption><span>SLMs vs. LLMs · 2024</span><a class="text-link" href={researchHighlight.links.poster} target="_blank" rel="noopener noreferrer">View full-size PDF<Icon name="arrow" /></a></figcaption>
+    </figure>
+  </section>
+  <MessageFile />
+  <ResumeFile />
+  <RepositoriesFile />

@@ -1,0 +1,115 @@
+---
+import { currentExperience, education, researchHighlight, site, skillGroups } from "../data/site";
+---
+
+<section id="resume" class="workspace-pane" data-workspace-pane data-filename="resume.pdf" aria-labelledby="resume-title">
+  <section class="page-hero shell">
+    <p class="eyebrow">Resume</p>
+    <h1 id="resume-title">Resume.</h1>
+    <p class="page-hero__lead">
+      A concise summary of my background, skills, work experience, and research.
+    </p>
+    <div class="meta-pills">
+      <span>{site.phone}</span>
+      <span>{site.email}</span>
+      <span>{site.location}</span>
+    </div>
+    <div class="hero__actions">
+      <a class="button button--primary" href={site.resume}>Open PDF</a>
+      <a class="button button--secondary" href={site.resume} download>Download</a>
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-heading">
+      <p class="eyebrow">Availability</p>
+      <h2>Current Status.</h2>
+      <p>{site.workAuthorization}</p>
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-heading">
+      <p class="eyebrow">Experience</p>
+      <h2>Work Experience.</h2>
+      <p>Frontend engineering experience in web, mobile, and real-time classroom products.</p>
+    </div>
+    <article class="feature-card">
+      <div class="feature-card__header">
+        <div>
+          <p class="meta">{currentExperience.period}</p>
+          <h3>{currentExperience.title}</h3>
+          <p>{currentExperience.company}</p>
+        </div>
+        <p class="feature-card__location">{currentExperience.location}</p>
+      </div>
+      <ul class="feature-list">
+        {currentExperience.highlights.map((highlight) => (
+          <li>{highlight}</li>
+        ))}
+      </ul>
+    </article>
+  </section>
+
+  <section class="section shell">
+    <div class="section-heading">
+      <p class="eyebrow">Skills</p>
+      <h2>Skills.</h2>
+      <p>Languages and tools I use most often.</p>
+    </div>
+    <div class="info-grid">
+      {skillGroups.map((group) => (
+        <article>
+          <h3>{group.title}</h3>
+          <p>{group.items}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-heading">
+      <p class="eyebrow">Education</p>
+      <h2>Education.</h2>
+      <p>Graduate and undergraduate study across software and engineering disciplines.</p>
+    </div>
+    <div class="timeline-grid">
+      {education.map((item) => (
+        <article>
+          <span>{item.period}</span>
+          <h3>{item.school}</h3>
+          <p>{item.degree}</p>
+          {item.meta && <p>{item.meta}</p>}
+          <p>{item.location}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-heading">
+      <p class="eyebrow">Research</p>
+      <h2>Publication.</h2>
+      <p>Master's capstone work in customer review analysis.</p>
+    </div>
+    <article class="feature-card">
+      <div class="feature-card__header">
+        <div>
+          <p class="meta">{researchHighlight.period}</p>
+          <h3>{researchHighlight.title}</h3>
+          <p>{researchHighlight.subtitle}</p>
+        </div>
+      </div>
+      <ul class="feature-list">
+        {researchHighlight.highlights.map((highlight) => (
+          <li>{highlight}</li>
+        ))}
+      </ul>
+      <div class="meta-pills">
+        <a href={researchHighlight.links.code}>Code</a>
+        <a href={researchHighlight.links.poster}>Poster</a>
+        <a href={researchHighlight.links.paper}>Paper</a>
+      </div>
+    </article>
+  </section>
+</section>

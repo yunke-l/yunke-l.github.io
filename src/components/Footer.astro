@@ -1,14 +1,11 @@
 ---
 import { site } from "../data/site";
+import { getWorkspaceFile } from "../data/workspace";
+import Icon from "./Icon.astro";
+const active = getWorkspaceFile(Astro.url.pathname);
 ---
 
 <footer class="site-footer">
-  <div class="shell site-footer__inner">
-    <p>&copy; {new Date().getFullYear()} {site.name}. Designed and built with Astro.</p>
-    <div class="site-footer__links">
-      <a href={`mailto:${site.email}`}>Email</a>
-      <a href={site.github}>GitHub</a>
-      <a href={site.linkedin}>LinkedIn</a>
-    </div>
-  </div>
+  <div class="status-group"><span class="status-branch"><Icon name="branch" />main</span><span>&copy; {new Date().getFullYear()} {site.name} · Built with Astro</span></div>
+  <div class="status-group"><span data-current-language>{active.language}</span><span>UTF-8</span><span>Vancouver, BC</span></div>
 </footer>

@@ -1,4 +1,4 @@
-name: deploy
+name: Build and deploy Astro
 
 on:
   push:
@@ -14,27 +14,31 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   deploy:
-    # available images: https://github.com/actions/runner-images#available-images
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout 🛎️
-      uses: actions/checkout@v3
-    - name: Setup Ruby
-      uses: ruby/setup-ruby@v1
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v4
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
       with:
-        ruby-version: '3.2.2'
-        bundler-cache: true
-    - name: Install and Build 🔧
+        node-version: '24'
+        cache: pnpm
+    - name: Install and build
       run: |
-        pip3 install --upgrade jupyter
-        npm install -g mermaid.cli
-        export JEKYLL_ENV=production
-        bundle exec jekyll build
-    - name: Deploy 🚀
+        pnpm install --frozen-lockfile
+        pnpm build
+    - name: Deploy
       if: github.event_name != 'pull_request'
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        folder: _site
+        folder: dist
+        branch: gh-pages
 

@@ -1,24 +1,22 @@
 ---
-import { navItems, site } from "../data/site";
+import { site } from "../data/site";
+import SocialIcon from "./SocialIcon.astro";
 
-const { pathname } = Astro.url;
+const contacts = [
+  { name: "LinkedIn", icon: "linkedin", href: site.linkedin },
+  { name: "GitHub", icon: "github", href: site.github },
+  { name: "Instagram", icon: "instagram", href: site.instagram },
+  { name: "Email", icon: "mail", href: `mailto:${site.email}` }
+] as const;
 ---
 
 <header class="site-header">
-  <div class="shell site-header__inner">
-    <a class="site-brand" href="/">{site.name}</a>
-    <nav class="site-nav" aria-label="Primary">
-      {navItems.map((item) => (
-        <a
-          href={item.href}
-          class:list={[
-            "site-nav__link",
-            pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))
-              ? "is-active"
-              : ""
-          ]}
-        >
-          {item.label}
+  <div class="site-header__inner">
+    <a class="site-brand" href="/" data-workspace-file="about" aria-label={`${site.name} — home`}><span class="brand-mark" aria-hidden="true">[yl]</span><span>yunke<span class="brand-dot">.</span>dev <span class="brand-context">/ workspace</span></span></a>
+    <nav class="social-nav" aria-label="Social and contact links">
+      {contacts.map((contact) => (
+        <a class="social-link" href={contact.href} aria-label={contact.name === "Email" ? `Email ${site.name}` : `${site.name} on ${contact.name} (opens in a new tab)`} title={contact.name === "Email" ? site.email : contact.name} target={contact.icon === "mail" ? undefined : "_blank"} rel={contact.icon === "mail" ? undefined : "noopener noreferrer"}>
+          <SocialIcon name={contact.icon} /><span>{contact.name}</span>
         </a>
       ))}
     </nav>

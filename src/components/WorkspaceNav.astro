@@ -1,0 +1,23 @@
+---
+import { site } from "../data/site";
+import { getWorkspaceFile, workspaceFiles } from "../data/workspace";
+import Icon from "./Icon.astro";
+const active = getWorkspaceFile(Astro.url.pathname);
+---
+<aside class="workspace-sidebar">
+  <div class="explorer-heading"><p class="sidebar-caption">Explorer</p><a class="create-message" href="/#message" data-workspace-file="message" data-create-message aria-label="Create message file" title="New message file"><span aria-hidden="true">+</span></a></div>
+  <details class="workspace-tree" open>
+    <summary class="workspace-folder"><Icon name="chevron" /><Icon name="folder" /><span>yunke-portfolio</span></summary>
+    <nav class="workspace-files" aria-label="Portfolio files">
+      {workspaceFiles.filter((file) => file.id !== "message").map((file) => (
+        <a class="workspace-file" href={file.href} data-workspace-file={file.id} aria-current={active.id === file.id ? "page" : undefined}>
+          <span class="file-type" data-type={file.type} aria-hidden="true">{file.type}</span><span>{file.label}</span>
+        </a>
+      ))}
+    </nav>
+  </details>
+  <div class="sidebar-details">
+    <span class="sidebar-caption">Based in</span><p>{site.location}</p>
+    <span class="sidebar-caption">Focus</span><p>Frontend / Product</p>
+  </div>
+</aside>

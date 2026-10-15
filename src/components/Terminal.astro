@@ -1,0 +1,52 @@
+---
+import { puffPhotos } from "../data/puff";
+---
+<section class="terminal" aria-label="Interactive terminal">
+  <div class="terminal-tabs">
+    <div class="terminal-tab-group"><span>Terminal</span><span data-terminal-file>shell</span></div>
+    <button class="terminal-help terminal-interactive" type="button" data-terminal-command="help" aria-label="Show terminal help">help <span aria-hidden="true">↵</span></button>
+  </div>
+  <div class="terminal-output">
+    <div class="terminal-interactive">
+      <p class="terminal-response sr-only" data-terminal-result role="status" aria-live="polite" aria-atomic="true" hidden></p>
+      <dl class="terminal-command-list" data-terminal-help hidden>
+        <div><dt>cat / puff</dt><dd>Meet my favourite coworker.</dd></div>
+        <div><dt>cat 1–6</dt><dd>Open a particular photo.</dd></div>
+        <div><dt>next / prev</dt><dd>Another little moment with Puff.</dd></div>
+        <div><dt>clear</dt><dd>A fresh terminal.</dd></div>
+      </dl>
+      <div class="cat-gallery" data-cat-gallery hidden>
+        <figure class="cat-gallery__photo">
+          <img src={puffPhotos[0].src} alt={puffPhotos[0].alt} width="1200" height="1200" loading="lazy" decoding="async" data-cat-photo />
+        </figure>
+        <div class="cat-gallery__details">
+          <h2>Puff<span class="accent-text">.</span></h2>
+          <div class="cat-gallery__thumbnails" aria-label="Photos of Puff">
+            {puffPhotos.map((photo, index) => (
+              <button type="button" data-cat-index={index} aria-label={`Show photo ${index + 1} of Puff`} aria-pressed={index === 0 ? "true" : "false"}>
+                <img src={photo.thumbnail} width="120" height="120" alt="" loading="lazy" decoding="async" />
+              </button>
+            ))}
+          </div>
+          <div class="cat-gallery__controls">
+            <button type="button" data-terminal-command="prev" aria-label="Previous photo of Puff"><span aria-hidden="true">←</span> Prev</button>
+            <span data-cat-position>1 of 6</span>
+            <button type="button" data-terminal-command="next" aria-label="Next photo of Puff">Next <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+      </div>
+      <form class="terminal-input" data-terminal-form>
+        <label class="sr-only" for="terminal-command">Terminal command</label>
+        <span class="terminal-prompt" aria-hidden="true">❯</span>
+        <input id="terminal-command" name="command" type="text" placeholder="Type help, or try cat…" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="120" />
+        <button type="submit" aria-label="Run terminal command">Run <span aria-hidden="true">↵</span></button>
+      </form>
+      <p class="terminal-hint">Try <button type="button" data-terminal-command="cat">cat</button><span aria-hidden="true">.</span></p>
+    </div>
+    <noscript><p>Meet <a href={puffPhotos[0].src}>Puff, my favourite coworker</a>.</p></noscript>
+  </div>
+</section>
+
+<script>
+  import "../scripts/terminal";
+</script>
