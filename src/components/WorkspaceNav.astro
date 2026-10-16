@@ -1,7 +1,7 @@
 ---
-import { site } from "../data/site";
 import { getWorkspaceFile, workspaceFiles } from "../data/workspace";
 import Icon from "./Icon.astro";
+import FileIcon from "./FileIcon.astro";
 const active = getWorkspaceFile(Astro.url.pathname);
 ---
 <aside class="workspace-sidebar">
@@ -11,13 +11,9 @@ const active = getWorkspaceFile(Astro.url.pathname);
     <nav class="workspace-files" aria-label="Portfolio files">
       {workspaceFiles.filter((file) => file.id !== "message").map((file) => (
         <a class="workspace-file" href={file.href} data-workspace-file={file.id} aria-current={active.id === file.id ? "page" : undefined}>
-          <span class="file-type" data-type={file.type} aria-hidden="true">{file.type}</span><span>{file.label}</span>
+          <FileIcon type={file.type} /><span>{file.label}</span>
         </a>
       ))}
     </nav>
   </details>
-  <div class="sidebar-details">
-    <span class="sidebar-caption">Based in</span><p>{site.location}</p>
-    <span class="sidebar-caption">Focus</span><p>Frontend / Product</p>
-  </div>
 </aside>

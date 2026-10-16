@@ -4,7 +4,6 @@ import { puffPhotos } from "../data/puff";
 <section class="terminal" aria-label="Interactive terminal">
   <div class="terminal-tabs">
     <div class="terminal-tab-group"><span>Terminal</span><span data-terminal-file>shell</span></div>
-    <button class="terminal-help terminal-interactive" type="button" data-terminal-command="help" aria-label="Show terminal help">help <span aria-hidden="true">↵</span></button>
   </div>
   <div class="terminal-output">
     <div class="terminal-interactive">
@@ -29,9 +28,9 @@ import { puffPhotos } from "../data/puff";
             ))}
           </div>
           <div class="cat-gallery__controls">
-            <button type="button" data-terminal-command="prev" aria-label="Previous photo of Puff"><span aria-hidden="true">←</span> Prev</button>
-            <span data-cat-position>1 of 6</span>
-            <button type="button" data-terminal-command="next" aria-label="Next photo of Puff">Next <span aria-hidden="true">→</span></button>
+            <button type="button" data-cat-direction="prev" aria-label="Previous photo of Puff"><span aria-hidden="true">←</span> Prev</button>
+            <span data-cat-position>1 of {puffPhotos.length}</span>
+            <button type="button" data-cat-direction="next" aria-label="Next photo of Puff">Next <span aria-hidden="true">→</span></button>
           </div>
         </div>
       </div>
@@ -41,9 +40,8 @@ import { puffPhotos } from "../data/puff";
         <input id="terminal-command" name="command" type="text" placeholder="Type help, or try cat…" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="120" />
         <button type="submit" aria-label="Run terminal command">Run <span aria-hidden="true">↵</span></button>
       </form>
-      <p class="terminal-hint">Try <button type="button" data-terminal-command="cat">cat</button><span aria-hidden="true">.</span></p>
     </div>
-    <noscript><p>Meet <a href={puffPhotos[0].src}>Puff, my favourite coworker</a>.</p></noscript>
+    <noscript><p>Enable JavaScript to use the interactive terminal.</p></noscript>
   </div>
 </section>
 

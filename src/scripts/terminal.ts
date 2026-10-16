@@ -17,15 +17,16 @@ if (terminal && form && input && gallery && photo) {
   let photoIndex = 0;
   terminal.classList.add("is-interactive");
 
-  function respond(text: string, error = false) {
+  function respond(text: string, kind: "success" | "error" | "hint" = "success") {
     if (!response) return;
     response.textContent = text;
     response.hidden = false;
-    response.classList.toggle("sr-only", !error);
-    response.dataset.kind = error ? "error" : "success";
+    response.classList.toggle("sr-only", kind === "success");
+    response.dataset.kind = kind;
   }
 
   function showPhoto(index: number) {
+    const wasHidden = gallery!.hidden;
     photoIndex = (index + puffPhotos.length) % puffPhotos.length;
     const selected = puffPhotos[photoIndex];
     photo!.src = selected.src;
@@ -38,11 +39,13 @@ if (terminal && form && input && gallery && photo) {
     thumbnails.forEach((button, i) => button.setAttribute("aria-pressed", String(i === photoIndex)));
     respond(`Puff has entered the chat. Photo ${photoIndex + 1} of ${puffPhotos.length}.`);
     gallery!.scrollIntoView({ block: "nearest", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+    if (wasHidden) terminal!.dispatchEvent(new Event("terminal:puff"));
   }
 
   function runCommand(raw: string) {
     const command = raw.trim();
     if (!command) return;
+    terminal!.removeAttribute("data-terminal-highlighted");
     if (history.at(-1) !== command) history.push(command);
     if (history.length > 20) history.shift();
     historyIndex = history.length;
@@ -65,7 +68,7 @@ if (terminal && form && input && gallery && photo) {
       if (response) { response.textContent = ""; response.hidden = true; }
       if (file) file.textContent = "shell";
     } else {
-      respond(`Command not found: ${command}. Try help, cat, or puff.`, true);
+      respond(`Command not found: ${command}. Try help, cat, or puff.`, "error");
     }
   }
 
@@ -76,11 +79,11 @@ if (terminal && form && input && gallery && photo) {
     runCommand(command);
   });
 
-  terminal.addEventListener("click", (event) => {
-    const button = event.target instanceof Element ? event.target.closest<HTMLButtonElement>("button") : null;
-    if (!button) return;
-    if (button.dataset.terminalCommand) runCommand(button.dataset.terminalCommand);
-    else if (button.dataset.catIndex !== undefined) runCommand(`cat ${Number(button.dataset.catIndex) + 1}`);
+  terminal.addEventListener("terminal:hint", () => {
+    terminal.setAttribute("data-terminal-highlighted", "");
+    respond("A coworker is hiding here. Type cat and press Enter.", "hint");
+    terminal.scrollIntoView({ block: "end", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+    input.focus({ preventScroll: true });
   });
 
   input.addEventListener("keydown", (event) => {
@@ -92,11 +95,18 @@ if (terminal && form && input && gallery && photo) {
     input.setSelectionRange(input.value.length, input.value.length);
   });
 
+  gallery.addEventListener("click", (event) => {
+    if (gallery.hidden) return;
+    const button = event.target instanceof Element ? event.target.closest<HTMLButtonElement>("button") : null;
+    if (!button) return;
+    if (button.dataset.catDirection) showPhoto(photoIndex + (button.dataset.catDirection === "next" ? 1 : -1));
+    else if (button.dataset.catIndex !== undefined) showPhoto(Number(button.dataset.catIndex));
+  });
   gallery.addEventListener("keydown", (event) => {
-    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    if (gallery.hidden || (event.key !== "ArrowLeft" && event.key !== "ArrowRight")) return;
     event.preventDefault();
-    runCommand(event.key === "ArrowRight" ? "next" : "prev");
+    showPhoto(photoIndex + (event.key === "ArrowRight" ? 1 : -1));
   });
 
-  photo.addEventListener("error", () => respond("This photo couldn't load. Try another thumbnail or type next.", true));
+  photo.addEventListener("error", () => respond("This photo couldn't load. Try another thumbnail or type next.", "error"));
 }

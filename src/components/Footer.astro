@@ -1,11 +1,8 @@
 ---
 import { site } from "../data/site";
-import { getWorkspaceFile } from "../data/workspace";
 import Icon from "./Icon.astro";
-const active = getWorkspaceFile(Astro.url.pathname);
 ---
 
 <footer class="site-footer">
   <div class="status-group"><span class="status-branch"><Icon name="branch" />main</span><span>&copy; {new Date().getFullYear()} {site.name} · Built with Astro</span></div>
-  <div class="status-group"><span data-current-language>{active.language}</span><span>UTF-8</span><span>Vancouver, BC</span></div>
 </footer>

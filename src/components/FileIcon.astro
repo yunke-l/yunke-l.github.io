@@ -1,0 +1,11 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  type: string;
+}
+
+const { type } = Astro.props;
+---
+
+<span class="file-type" data-type={type} aria-hidden="true">{type === "mail" ? <Icon name="mail" /> : type}</span>

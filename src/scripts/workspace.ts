@@ -64,9 +64,7 @@ if (workspace) {
     workspace?.classList.toggle("is-empty", !active);
 
     const filename = workspace?.querySelector("[data-current-file]");
-    const language = workspace?.querySelector("[data-current-language]");
     if (filename) filename.textContent = active?.label ?? "workspace";
-    if (language) language.textContent = active?.language ?? "Workspace";
     if (panes.length) document.title = `${active?.label ?? "Workspace"} | ${workspace?.dataset.siteName}`;
   }
 
@@ -165,6 +163,6 @@ if (workspace) {
     const id = link?.dataset.workspaceFile;
     if (!link || link.target || !isFileId(id)) return;
     event.preventDefault();
-    openFile(id, false, link.hasAttribute("data-create-message") || !!link.closest("[data-workspace-pane], [data-empty-workspace]"));
+    openFile(id, false, link.hasAttribute("data-create-message") || link.hasAttribute("data-guide-link") || !!link.closest("[data-workspace-pane], [data-empty-workspace]"));
   });
 }

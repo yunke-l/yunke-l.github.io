@@ -1,0 +1,121 @@
+---
+import Icon from "./Icon.astro";
+
+const guideName = "YUKI";
+---
+
+<aside class="guide" data-guide data-guide-name={guideName} hidden aria-label={`${guideName}, Easter egg discovery assistant`}>
+  <section class="guide__panel" id="portfolio-guide-panel" aria-labelledby="guide-title" hidden>
+    <header class="guide__header">
+      <div><p class="guide__eyebrow">// Your Easter egg guide</p><h2 id="guide-title">Hi, I'm {guideName}<span>.</span></h2></div>
+      <button class="guide__close" type="button" data-guide-close aria-label="Close guide">×</button>
+    </header>
+    <nav class="guide__links" aria-label="Discover Easter eggs">
+      <button type="button" data-guide-puff data-guide-action>
+        <svg class="guide__cat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11V4l6 4h4l6-4v7a8 8 0 1 1-16 0Z" /><path d="M8 12h.01M16 12h.01M11 15l1 1 1-1M3 14l4 1m-4 3 4-1m14-3-4 1m4 3-4-1" /></svg>
+        <span><strong>Meet coworker</strong></span><Icon name="arrow" />
+      </button>
+      <a href="/#message" data-workspace-file="message" data-guide-link data-guide-action>
+        <Icon name="mail" class="guide__action-icon" /><span><strong>Leave a note</strong></span><Icon name="arrow" />
+      </a>
+    </nav>
+    <button class="guide__dock" type="button" data-guide-dock><span>Tuck YUKI to nearest edge</span><span aria-hidden="true">↗</span></button>
+  </section>
+  <p class="guide__speech" data-guide-speech role="status" hidden></p>
+  <div class="guide__sparkles" aria-hidden="true">
+    {[[-42, -28], [4, -48], [44, -22], [-36, 30], [40, 28], [8, 44]].map(([x, y], index) => <span style={`--spark-x:${x}px;--spark-y:${y}px;--spark-delay:${index * 35}ms`}>{index % 2 ? "✧" : "✦"}</span>)}
+  </div>
+  <button class="guide__launcher" type="button" data-guide-toggle aria-label={`Open ${guideName}, your Easter egg guide`} aria-describedby="guide-move-hint" title="Click to open · Drag to move" aria-expanded="false" aria-controls="portfolio-guide-panel">
+    <svg class="guide__alien" viewBox="0 0 40 44" fill="none" shape-rendering="crispEdges" aria-hidden="true">
+      <g class="guide__sprite">
+        <path d="M8 2h4v4h4v4h8V6h4V2h4v6h-4v4h4v4h4v14h-4v4h-4v6H12v-6H8v-4H4V16h4v-4h4V8H8V2Z" fill="#315c58" />
+        <path d="M12 12h16v4h4v14h-4v4H12v-4H8V16h4v-4Z" fill="#8cdbad" />
+        <path d="M12 12h12v4H12v8H8v-8h4v-4Z" fill="#bef4cb" />
+        <g class="guide__eyes" fill="#0d2028"><path d="M12 20h6v8h-4v-2h-2v-6ZM22 20h6v6h-2v2h-4v-8Z" /></g>
+        <g class="guide__happy-eyes" fill="#0d2028"><path d="M12 24v-4h6v4h-2v-2h-2v2h-2ZM22 24v-4h6v4h-2v-2h-2v2h-2Z" /></g>
+        <g class="guide__cat-ears"><path d="M8 16V6l10 8M22 14 32 6v10" fill="#8cdbad" stroke="#315c58" stroke-width="2" /><path d="M11 13V10l4 3M25 13l4-3v3" stroke="#b69aff" stroke-width="2" /></g>
+        <path d="M18 30h4v2h-4z" fill="#315c58" />
+        <path d="M12 34h16v4H12z" fill="#52dcff" /><path d="M12 38h6v4h-6zM22 38h6v4h-6z" fill="#315c58" />
+        <path d="M2 28h6v4H2zM32 28h6v4h-6z" fill="#8cdbad" />
+        <path d="M8 2h4v4H8zM28 2h4v4h-4z" fill="#52dcff" />
+      </g>
+    </svg>
+    <span class="guide__name">{guideName}</span>
+  </button>
+  <p id="guide-move-hint" class="sr-only">Drag to move, or use the arrow keys. Drag to any edge to tuck YUKI away.</p>
+  <button class="guide__edge" type="button" data-guide-restore aria-label="Restore YUKI" title="Bring YUKI back" hidden><Icon name="chevron" class="guide__edge-arrow" /><span>YUKI</span></button>
+</aside>
+
+<script>
+  import "../scripts/portfolio-guide";
+</script>
+
+<style>
+  .guide { position: fixed; width: 76px; right: max(48px, env(safe-area-inset-right)); bottom: max(24px, env(safe-area-inset-bottom)); z-index: 30; }
+  .guide__launcher { position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; padding: 10px 8px 7px; margin-left: auto; border: 0; border-radius: 12px; color: var(--green); background: transparent; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+  .guide[data-dragging] .guide__launcher { cursor: grabbing; }
+  .guide[data-dragging] .guide__sprite { animation: none; }
+  .guide__launcher::before { content: ""; position: absolute; z-index: -1; top: -10px; left: 50%; width: 96px; height: 96px; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, #8cdbad30, #52dcff12 42%, transparent 70%); filter: blur(6px); pointer-events: none; animation: guide-glow 6s ease-in-out infinite; }
+  .guide__launcher:hover, .guide__launcher[aria-expanded="true"] { color: #bef4cb; }
+  .guide__alien { width: 40px; height: 44px; overflow: visible; filter: drop-shadow(0 0 5px #8cdbad66) drop-shadow(0 0 14px #52dcff33); }
+  .guide__sprite { animation: guide-float 6s ease-in-out infinite; }
+  .guide__eyes { transform-box: fill-box; transform-origin: center; animation: guide-blink 7s linear infinite; }
+  .guide__happy-eyes, .guide__cat-ears { display: none; }
+  .guide[data-surprise] .guide__eyes { display: none; }
+  .guide[data-surprise] .guide__happy-eyes, .guide[data-surprise="puff"] .guide__cat-ears { display: block; }
+  .guide[data-surprise] .guide__alien { animation: guide-happy-hop 650ms ease; }
+  .guide__speech { position: fixed; width: max-content; max-width: min(236px, calc(100vw - 32px)); margin: 0; padding: 12px 15px; border: 1px solid #477966; border-radius: 12px; background: var(--chrome); color: var(--green); box-shadow: 0 8px 24px #0005; font: var(--font-small)/1.7 var(--mono); pointer-events: none; }
+  .guide__sparkles { display: none; position: absolute; inset: 0; pointer-events: none; }
+  .guide[data-surprise]:not([data-docked]) .guide__sparkles { display: block; }
+  .guide__sparkles > span { position: absolute; left: 50%; top: 38%; color: var(--green); font: 18px/1 var(--mono); opacity: 0; animation: guide-starburst 1100ms var(--spark-delay) ease-out both; }
+  .guide__sparkles > span:nth-child(3n) { color: var(--purple); }
+  .guide__sparkles > span:nth-child(3n + 2) { color: var(--accent); }
+  .guide__name { font: 500 11px/1.5 var(--mono); }
+  .guide__panel { position: fixed; width: min(288px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); overflow-y: auto; padding: 18px; border: 1px solid #c3f5ed40; border-radius: 14px; background: linear-gradient(145deg, #304a5866, #101c2db3), #0d121d33; backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); box-shadow: 0 28px 64px #000b, 0 8px 24px #0008, 0 0 32px #52dcff12, inset 0 1px 0 #e0fff438; transform-origin: bottom right; animation: guide-appear 420ms cubic-bezier(0.16, 1, 0.3, 1); }
+  .guide__header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .guide__eyebrow { margin: 0 0 7px; color: var(--green); font: 11px/1.6 var(--mono); }
+  .guide__header h2 { margin: 0; color: var(--text); font-size: 25px; line-height: 1.3; }
+  .guide__header h2 > span { color: var(--green); }
+  .guide__close { display: grid; place-items: center; flex-shrink: 0; width: 36px; height: 36px; margin: -8px -8px 0 0; padding: 0; border: 0; border-radius: 5px; color: var(--text-soft); background: transparent; font: 24px/1 var(--sans); }
+  .guide__close:hover { color: var(--text); background: var(--surface); }
+  .guide__links { display: grid; gap: 6px; margin-top: 20px; }
+  .guide__links :is(a, button) { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 48px; padding: 10px; border: 1px solid #b3d4e01f; border-radius: 6px; color: var(--text); background: #080e1633; font: inherit; text-align: left; }
+  .guide__links :is(a, button):hover { border-color: #477966; background: #8cdbad08; }
+  .guide__links :is(a, button) > span { flex: 1; }
+  .guide__links strong { display: block; font-size: var(--font-ui); font-weight: 500; }
+  .guide__links .icon:last-child { width: 15px; height: 15px; color: var(--text-soft); }
+  .guide__cat, .guide__action-icon { width: 20px; height: 20px; flex-shrink: 0; color: var(--green); }
+  .guide__dock { display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; min-height: 44px; margin-top: 8px; padding: 8px 0; border: 0; background: transparent; color: var(--text-soft); text-align: left; font-size: var(--font-small); }
+  .guide__dock:hover { color: var(--green); }
+  .guide[data-docked] { width: 44px; }
+  .guide__edge { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; width: 100%; height: 88px; padding: 8px; border: 1px solid #477966; color: var(--green); background: var(--chrome); box-shadow: 0 0 20px #8cdbad12; }
+  .guide[data-docked="right"] .guide__edge { border-right: 0; border-radius: 12px 0 0 12px; }
+  .guide[data-docked="left"] .guide__edge { border-left: 0; border-radius: 0 12px 12px 0; }
+  .guide:is([data-docked="top"], [data-docked="bottom"]) { width: 88px; }
+  .guide:is([data-docked="top"], [data-docked="bottom"]) .guide__edge { flex-direction: row; height: 44px; }
+  .guide[data-docked="top"] .guide__edge { border-top: 0; border-radius: 0 0 12px 12px; }
+  .guide[data-docked="bottom"] .guide__edge { border-bottom: 0; border-radius: 12px 12px 0 0; }
+  .guide__edge:hover { color: #bef4cb; background: var(--surface); }
+  .guide__edge-arrow { width: 20px; height: 20px; }
+  .guide[data-docked="left"] .guide__edge-arrow { transform: rotate(-90deg); }
+  .guide[data-docked="right"] .guide__edge-arrow { transform: rotate(90deg); }
+  .guide[data-docked="bottom"] .guide__edge-arrow { transform: rotate(180deg); }
+  .guide__edge > span:last-child { writing-mode: vertical-rl; font: 500 11px/1.5 var(--mono); letter-spacing: 0.1em; }
+  .guide:is([data-docked="top"], [data-docked="bottom"]) .guide__edge > span:last-child { writing-mode: horizontal-tb; }
+  @keyframes guide-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+  @keyframes guide-blink { 0%, 43%, 47%, 100% { transform: scaleY(1); } 45% { transform: scaleY(0.12); } }
+  @keyframes guide-glow { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+  @keyframes guide-happy-hop { 0%, 100% { transform: translateY(0) rotate(0); } 30% { transform: translateY(-9px) rotate(-9deg); } 65% { transform: translateY(-3px) rotate(7deg); } }
+  @keyframes guide-starburst { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(calc(-50% + var(--spark-x)), calc(-50% + var(--spark-y))) rotate(50deg) scale(1.1); } }
+  @keyframes guide-appear { from { opacity: 0; transform: translateY(22px) scale(0.92); } to { opacity: 1; transform: none; } }
+  @media (max-width: 639px) {
+    .guide { width: 64px; right: max(28px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); }
+    .guide__launcher { padding: 8px 6px 5px; }
+    .guide__alien { width: 32px; height: 36px; }
+    .guide__close { width: 44px; height: 44px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .guide__sprite, .guide__eyes, .guide__launcher::before, .guide__panel, .guide[data-surprise] .guide__alien, .guide__sparkles > span { animation: none; }
+    .guide[data-surprise] .guide__sparkles { display: none; }
+  }
+</style>

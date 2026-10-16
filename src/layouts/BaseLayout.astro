@@ -5,6 +5,7 @@ import WorkspaceNav from "../components/WorkspaceNav.astro";
 import EditorTabs from "../components/EditorTabs.astro";
 import Terminal from "../components/Terminal.astro";
 import WorkspaceFiles from "../components/WorkspaceFiles.astro";
+import PortfolioGuide from "../components/PortfolioGuide.astro";
 import { site } from "../data/site";
 import { getWorkspaceFile } from "../data/workspace";
 import "../styles/global.css";
@@ -64,6 +65,7 @@ const isWorkspaceRoute = ["/", "/resume/", "/github/"].includes(Astro.url.pathna
       <Footer />
     </div>
     <p class="sr-only" data-file-announcement aria-live="polite" aria-atomic="true"></p>
+    <PortfolioGuide />
     <script>
       import "../scripts/workspace";
     </script>

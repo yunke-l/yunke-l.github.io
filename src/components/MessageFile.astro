@@ -1,6 +1,7 @@
 ---
 import { site } from "../data/site";
 import Icon from "./Icon.astro";
+import FileIcon from "./FileIcon.astro";
 ---
 
 <section id="message" class="workspace-pane" data-workspace-pane data-filename="message.md" aria-labelledby="message-title">
@@ -8,7 +9,7 @@ import Icon from "./Icon.astro";
   <h1 class="pane-title" id="message-title">Your words.<br /><span class="accent-text">My inbox.</span></h1>
   <p class="page-lead">An idea, an opportunity, or just a hello — leave me a note.</p>
   <div class="message-editor">
-    <div class="message-editor__header"><span><span class="file-type" aria-hidden="true">M↓</span>message.md</span><span>To: Yunke Li</span></div>
+    <div class="message-editor__header"><span><FileIcon type="mail" />message.md</span><span>To: Yunke Li</span></div>
     <form class="message-form" action={`https://formsubmit.co/${site.email}`} method="POST" data-message-form data-ajax-endpoint={`https://formsubmit.co/ajax/${site.email}`}>
       <input type="hidden" name="_subject" value="New message from Yunke's portfolio" />
       <input type="hidden" name="_template" value="table" />
