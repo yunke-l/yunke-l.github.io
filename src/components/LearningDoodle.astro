@@ -1,0 +1,66 @@
+---
+interface Props {
+  variant: "letters" | "owl" | "star";
+  class?: string;
+}
+
+const { variant, class: className } = Astro.props;
+---
+
+<svg
+  class:list={["learning-doodle", `learning-doodle--${variant}`, className]}
+  width={variant === "letters" ? 98 : variant === "owl" ? 56 : 33}
+  height={variant === "letters" ? 46 : variant === "owl" ? 56 : 33}
+  viewBox={variant === "letters" ? "0 0 110 52" : variant === "owl" ? "0 0 64 64" : "0 0 56 56"}
+  fill="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  {variant === "letters" && <>
+    <g transform="rotate(-10 19 31)">
+      <rect x="5" y="17" width="28" height="28" rx="6" fill="#52dcff12" stroke="#52dcff88" stroke-width="1.4" />
+      <text x="19" y="37" text-anchor="middle" fill="#8ee7fa">A</text>
+    </g>
+    <g transform="rotate(8 55 21)">
+      <rect x="41" y="7" width="28" height="28" rx="6" fill="#b69aff12" stroke="#b69aff88" stroke-width="1.4" />
+      <text x="55" y="27" text-anchor="middle" fill="#c8b4f5">B</text>
+    </g>
+    <g transform="rotate(-5 91 33)">
+      <rect x="77" y="19" width="28" height="28" rx="6" fill="#8cdbad12" stroke="#8cdbad88" stroke-width="1.4" />
+      <text x="91" y="39" text-anchor="middle" fill="#a3dfbc">C</text>
+    </g>
+  </>}
+  {variant === "owl" && <g stroke-linecap="round" stroke-linejoin="round">
+    <path d="m16 21-2-13 12 7q6-3 12 0l12-7-2 13c5 8 4 20-2 26q-14 13-28 0c-6-6-7-18-2-26Z" fill="#302b43" stroke="#baa6db" stroke-width="1.5" />
+    <path d="M19 18q5-3 10 3m6 0q5-6 10-3" stroke="#d2bfe8" stroke-width="1.3" />
+    <circle cx="24" cy="28" r="8.5" fill="#e5d9c325" />
+    <circle cx="40" cy="28" r="8.5" fill="#e5d9c325" />
+    <circle cx="24" cy="28" r="6.5" stroke="#93d2d8" stroke-width="1.3" />
+    <circle cx="40" cy="28" r="6.5" stroke="#93d2d8" stroke-width="1.3" />
+    <path d="M30.5 27.5h3" stroke="#93d2d8" stroke-width="1.3" />
+    <circle cx="25" cy="30" r="2.5" fill="#f0e4ce" />
+    <circle cx="39" cy="30" r="2.5" fill="#f0e4ce" />
+    <circle cx="25.5" cy="30.5" r="1.3" fill="#1a2332" />
+    <circle cx="38.5" cy="30.5" r="1.3" fill="#1a2332" />
+    <path d="m29 35 3 4 3-4" fill="#dfc78e" />
+    <path d="M15 35q-5 4-2 12m36-12q5 4 2 12" stroke="#baa6db" stroke-width="2" />
+    <path d="M9 43q12-2 23 4v13q-11-6-23-4V43Z" fill="#17343e" stroke="#8fcbd0" stroke-width="1.4" />
+    <path d="M55 43q-12-2-23 4v13q11-6 23-4V43Z" fill="#1c3c46" stroke="#8fcbd0" stroke-width="1.4" />
+    <text x="20" y="52" text-anchor="middle" fill="#c4e4dc" font-size="9" font-family="var(--mono)">A</text>
+    <path d="m39 48 10-2m-10 6 10-2" stroke="#8fcbd080" stroke-width="1.2" />
+  </g>}
+  {variant === "star" && <g transform="rotate(-12 28 28)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m28 6 6.5 13.5L49 22l-10.5 10.5L41 47l-13-7-13 7 2.5-14.5L7 22l14.5-2.5L28 6Z" fill="#e8d18b12" stroke="#d9c78d" stroke-width="1.5" />
+    <circle cx="24" cy="28" r="1.1" fill="#e5d7ad" />
+    <circle cx="32" cy="28" r="1.1" fill="#e5d7ad" />
+    <path d="M25.5 32q2.5 2.5 5 0" stroke="#e5d7ad" stroke-width="1.3" />
+  </g>}
+</svg>
+
+<style>
+  .learning-doodle { display: block; flex-shrink: 0; pointer-events: none; user-select: none; }
+  .learning-doodle--letters { width: 98px; height: 46px; }
+  .learning-doodle--letters text { font: 500 18px var(--mono); }
+  .learning-doodle--owl { width: 56px; height: 56px; }
+  .learning-doodle--star { width: 33px; height: 33px; }
+</style>

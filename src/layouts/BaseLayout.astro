@@ -1,0 +1,73 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import WorkspaceNav from "../components/WorkspaceNav.astro";
+import EditorTabs from "../components/EditorTabs.astro";
+import Terminal from "../components/Terminal.astro";
+import WorkspaceFiles from "../components/WorkspaceFiles.astro";
+import PortfolioGuide from "../components/PortfolioGuide.astro";
+import { site } from "../data/site";
+import { getWorkspaceFile } from "../data/workspace";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = site.description } = Astro.props;
+const pageTitle = title ? `${title} | ${site.name}` : site.name;
+const isWorkspaceRoute = ["/", "/resume/", "/github/"].includes(Astro.url.pathname.replace(/\/?$/, "/"));
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#080c14" />
+    <meta name="color-scheme" content="dark" />
+    <title>{pageTitle}</title>
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="workspace-shell" data-route-file={getWorkspaceFile(Astro.url.pathname).id} data-site-name={site.name}>
+      <Header />
+      <div class="workspace-body">
+        <WorkspaceNav />
+        <div class="workspace-editor">
+          <EditorTabs />
+          <main id="main-content" class="editor-content" tabindex="-1">
+            <div data-workspace-content>{isWorkspaceRoute ? <WorkspaceFiles /> : <slot />}</div>
+            <section class="empty-workspace" data-empty-workspace hidden aria-labelledby="empty-workspace-title">
+              <div class="empty-workspace__mark" aria-hidden="true">[yl]</div>
+              <p class="eyebrow">// A little room for what's next</p>
+              <h1 id="empty-workspace-title" tabindex="-1">No files open.</h1>
+              <p>Every idea starts with a blank workspace.<br />Open a file from the explorer, or start here.</p>
+              <div class="hero__actions">
+                <a class="button button--primary" href="/#about" data-workspace-file="about">Open about.md<span aria-hidden="true">↗</span></a>
+                <a class="button button--secondary" href="/#work" data-workspace-file="work">Explore my work</a>
+              </div>
+              <span class="empty-workspace__hint">Your files are still in the explorer.</span>
+            </section>
+          </main>
+          <Terminal />
+        </div>
+      </div>
+      <Footer />
+    </div>
+    <p class="sr-only" data-file-announcement aria-live="polite" aria-atomic="true"></p>
+    <PortfolioGuide />
+    <script>
+      import "../scripts/workspace";
+    </script>
+  </body>
+</html>

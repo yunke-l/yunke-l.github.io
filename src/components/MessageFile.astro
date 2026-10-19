@@ -1,0 +1,32 @@
+---
+import { site } from "../data/site";
+import Icon from "./Icon.astro";
+import FileIcon from "./FileIcon.astro";
+---
+
+<section id="message" class="workspace-pane" data-workspace-pane data-filename="message.md" aria-labelledby="message-title">
+  <p class="eyebrow">// A new connection starts here</p>
+  <h1 class="pane-title" id="message-title">Your words.<br /><span class="accent-text">My inbox.</span></h1>
+  <p class="page-lead">An idea, an opportunity, or just a hello — leave me a note.</p>
+  <div class="message-editor">
+    <div class="message-editor__header"><span><FileIcon type="mail" />message.md</span><span>To: Yunke Li</span></div>
+    <form class="message-form" action={`https://formsubmit.co/${site.email}`} method="POST" data-message-form data-ajax-endpoint={`https://formsubmit.co/ajax/${site.email}`}>
+      <input type="hidden" name="_subject" value="New message from Yunke's portfolio" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_url" value="https://yunke-l.github.io/#message" />
+      <div hidden aria-hidden="true"><label>Leave this empty<input type="text" name="_honey" tabindex="-1" autocomplete="off" /></label></div>
+      <div class="message-form__details">
+        <label>Your name<input name="name" autocomplete="name" required maxlength="100" placeholder="How should I address you?" /></label>
+        <label>Your email<input type="email" name="email" autocomplete="email" required maxlength="254" placeholder="So I can reply" /></label>
+      </div>
+      <label class="message-form__body">Your message<textarea name="message" required minlength="1" maxlength="5000" rows="8" placeholder="Hi Yunke,&#10;&#10;I've been meaning to tell you…" aria-describedby="message-count"></textarea></label>
+      <div class="message-form__footer"><span id="message-count" data-message-count>0 / 5,000</span></div>
+      <div class="message-form__actions"><button class="button button--paper" type="submit" data-message-send><span data-send-label>Send message</span><Icon name="arrow" /></button><p class="message-form__status" data-message-status role="status" aria-live="polite" aria-atomic="true"></p></div>
+      <p class="message-form__note">Delivered via <a href="https://formsubmit.co/" target="_blank" rel="noopener noreferrer">FormSubmit</a> to my inbox. Your message won't appear on this site.</p>
+    </form>
+  </div>
+</section>
+
+<script>
+  import "../scripts/message";
+</script>

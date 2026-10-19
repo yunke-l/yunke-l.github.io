@@ -1,0 +1,8 @@
+---
+import { site } from "../data/site";
+import Icon from "./Icon.astro";
+---
+
+<footer class="site-footer">
+  <div class="status-group"><span class="status-branch"><Icon name="branch" />main</span><span>&copy; {new Date().getFullYear()} {site.name} · Built with Astro</span></div>
+</footer>

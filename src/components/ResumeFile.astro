@@ -1,0 +1,180 @@
+---
+import { currentExperience, education, researchHighlight, site, skillGroups } from "../data/site";
+
+const experienceTechnologyPattern = /\b(React Native|React|TypeScript|npm|WebView|REST APIs|Expo|Taro|ECharts)\b/g;
+---
+
+<section id="resume" class="workspace-pane" data-workspace-pane data-filename="resume.pdf" aria-labelledby="resume-title">
+  <section class="page-hero shell resume-hero">
+    <div class="resume-hero__intro">
+      <h1 id="resume-title">Resume.</h1>
+      <div class="hero__actions">
+        <a class="button button--primary" href={site.resume} target="_blank" rel="noopener noreferrer" aria-label="Open PDF (opens in a new tab)">Open PDF</a>
+        <a class="button button--secondary" href={site.resume} download>Download</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section shell resume-status">
+    <div class="section-heading">
+      <h2>Current Status.</h2>
+      <p>{site.workAuthorization}</p>
+    </div>
+    <figure class="resume-greeting">
+      <div class="resume-greeting__window">
+        <img class="resume-greeting__photo" src="/assets/img/neu-graduation-cutout.webp" width="640" height="765" alt="Yunke in Northeastern University graduation regalia, giving a thumbs-up." decoding="async" />
+      </div>
+      <span class="resume-greeting__hello" aria-hidden="true">Hi!</span>
+    </figure>
+  </section>
+
+  <section class="section shell">
+    <div class="section-heading">
+      <h2>Education.</h2>
+    </div>
+    <div class="resume-education">
+      {education.map((item) => (
+        <article class="resume-education__item">
+          <div class="resume-education__details">
+            <h3>{item.school}</h3>
+            <p>{item.degree}{item.meta && <> · {item.meta}</>}</p>
+          </div>
+          <div class="resume-education__when">
+            <p class="resume-education__period">{item.period}</p>
+            <p>{item.location}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-heading resume-skills-heading">
+      <h2>Skills.</h2>
+    </div>
+    <div class="resume-skills">
+      {skillGroups.map((group, index) => (
+        <article class="resume-skills__row" style={`--skill-color: ${["var(--accent)", "var(--purple)", "#f3cc7a", "var(--green)", "#f3a8c4"][index]}`}>
+          <span class="resume-skills__number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+          <h3>{group.title}</h3>
+          <ul aria-label={group.title}>
+            {group.items.split(", ").map((skill) => <li>{skill}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-heading">
+      <h2>Work Experience.</h2>
+    </div>
+    <article class="feature-card">
+      <div class="feature-card__header">
+        <div>
+          <p class="meta">{currentExperience.period}</p>
+          <h3>{currentExperience.title}</h3>
+          <p>{currentExperience.company}</p>
+        </div>
+        <p class="feature-card__location">{currentExperience.location}</p>
+      </div>
+      <p class="resume-experience__scope">{currentExperience.scope}</p>
+      <ul class="feature-list">
+        {currentExperience.highlights.map((highlight) => (
+          <li>{highlight.split(experienceTechnologyPattern).map((part, index) => (
+            index % 2 === 1 ? <strong class="resume-experience__stack">{part}</strong> : part
+          ))}</li>
+        ))}
+      </ul>
+    </article>
+  </section>
+
+  <section class="section shell">
+    <div class="section-heading">
+      <h2>Publication.</h2>
+    </div>
+    <article class="feature-card">
+      <div class="feature-card__header">
+        <div>
+          <p class="meta">{researchHighlight.period}</p>
+          <h3>{researchHighlight.title}</h3>
+          <p>{researchHighlight.subtitle}</p>
+        </div>
+      </div>
+      <ul class="feature-list">
+        {researchHighlight.highlights.map((highlight) => (
+          <li>{highlight}</li>
+        ))}
+      </ul>
+      <div class="meta-pills">
+        <a href={researchHighlight.links.code} target="_blank" rel="noopener noreferrer" aria-label="Code (opens in a new tab)">Code</a>
+        <a href={researchHighlight.links.poster} target="_blank" rel="noopener noreferrer" aria-label="Poster (opens in a new tab)">Poster</a>
+        <a href={researchHighlight.links.paper} target="_blank" rel="noopener noreferrer" aria-label="Paper (opens in a new tab)">Paper</a>
+      </div>
+    </article>
+  </section>
+</section>
+
+<style>
+  .resume-hero__intro { min-width: 0; }
+  .resume-status { position: relative; padding-right: 232px; display: flow-root; }
+  .resume-greeting { position: absolute; right: 0; bottom: 18px; width: 280px; margin: 0; pointer-events: none; }
+  .resume-greeting::after { content: ""; position: absolute; bottom: 0; inset-inline: 0; height: 1px; background: linear-gradient(90deg, transparent, #52dcff88 35%, #52dcff88 65%, transparent); }
+  .resume-greeting__window { position: relative; height: 240px; overflow: hidden; background: radial-gradient(ellipse at 50% 85%, #52dcff12, transparent 65%); }
+  .resume-greeting__photo { width: 100%; height: 100%; object-fit: contain; object-position: center bottom; scale: -1 1; transform: rotate(-4deg); transform-origin: 50% 100%; filter: drop-shadow(1px 0 0 #bcefff80) drop-shadow(-1px 0 0 #bcefff80) drop-shadow(0 -1px 0 #bcefff80); animation: resume-peek 900ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .resume-greeting__hello { position: absolute; top: 4px; right: 0; padding: 5px 12px; border: 1px solid #3e7184; border-radius: 10px 10px 10px 2px; color: var(--accent); background: var(--chrome); font: 500 15px/1.5 var(--mono); transform: rotate(7deg); animation: resume-hello 500ms 650ms ease both; }
+  @keyframes resume-peek { from { opacity: 0; transform: translateY(55px) rotate(6deg); } to { opacity: 1; transform: translateY(0) rotate(-4deg); } }
+  @keyframes resume-hello { from { opacity: 0; transform: translateY(5px) rotate(0); } to { opacity: 1; transform: translateY(0) rotate(7deg); } }
+
+  .section { padding-top: 32px; }
+  .section-heading { margin: 20px 0 18px; }
+  .section-heading h2 { margin-bottom: 8px; }
+  .section-heading > :last-child { margin-bottom: 0; }
+
+  .feature-card .resume-experience__scope { margin: 4px 0 0; color: var(--text); font-size: var(--font-copy); }
+  .resume-experience__stack { color: var(--accent); font-weight: 600; }
+
+  .resume-skills-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; max-width: none; }
+  .resume-skills-heading h2 { margin: 0; }
+  .resume-skills { overflow: hidden; border: 1px solid #2a3b50; border-radius: 8px; background: linear-gradient(110deg, #52dcff06, transparent 45%), var(--chrome); }
+  .resume-skills__row { display: grid; grid-template-columns: 22px 156px minmax(0, 1fr); align-items: center; gap: 16px; padding: 12px 18px; transition: background-color 160ms, box-shadow 160ms; }
+  .resume-skills__row + .resume-skills__row { border-top: 1px solid var(--line); }
+  .resume-skills__row:hover { background: #ffffff03; box-shadow: inset 2px 0 var(--skill-color); }
+  .resume-skills__number { color: #70819b; font: var(--font-caption)/1.6 var(--mono); }
+  .resume-skills h3 { margin: 0; color: var(--skill-color); font: 500 var(--font-small)/1.6 var(--mono); }
+  .resume-skills ul { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; margin: 0; padding: 0; list-style: none; }
+  .resume-skills li { max-width: 100%; padding: 3px 9px; border: 1px solid color-mix(in srgb, var(--skill-color) 20%, transparent); border-radius: 4px; background: color-mix(in srgb, var(--skill-color) 6%, transparent); color: var(--text); font: var(--font-small)/1.6 var(--mono); overflow-wrap: anywhere; }
+
+  .resume-education { border-block: 1px solid var(--line); }
+  .resume-education__item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px 24px;
+    padding: 18px 0;
+  }
+  .resume-education__item + .resume-education__item { border-top: 1px solid var(--line); }
+  .resume-education h3 { margin: 0 0 4px; font-size: 17px; line-height: 1.5; }
+  .resume-education p { margin: 0; color: var(--text-soft); font-size: var(--font-copy); line-height: 1.6; }
+  .resume-education__when { text-align: right; }
+  .resume-education__when p { font-size: var(--font-small); }
+  .resume-education .resume-education__period { margin-bottom: 4px; color: var(--accent); font-family: var(--mono); }
+
+  @media (max-width: 959px) {
+    .resume-status { padding-right: 208px; }
+    .resume-greeting { width: 184px; }
+    .resume-greeting__window { height: 218px; }
+    .resume-education__item { grid-template-columns: minmax(0, 1fr); gap: 8px; padding-block: 16px; }
+    .resume-education__when { display: flex; flex-wrap: wrap; gap: 4px 16px; text-align: left; }
+    .resume-education .resume-education__period { margin: 0; }
+  }
+
+  @media (max-width: 639px) {
+    .resume-status { padding-right: 136px; }
+    .resume-greeting { width: 120px; }
+    .resume-greeting__window { height: 134px; }
+    .resume-greeting__hello { top: -4px; right: -1px; padding: 2px 7px; font-size: 12px; }
+    .resume-skills__row { grid-template-columns: 22px minmax(0, 1fr); gap: 8px 10px; padding: 12px 14px; }
+    .resume-skills ul { grid-column: 2; }
+    .resume-skills li { padding-inline: 7px; }
+  }
+</style>

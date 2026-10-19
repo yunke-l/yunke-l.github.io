@@ -1,0 +1,44 @@
+---
+import { site } from "../data/site";
+const portrait = "/assets/img/avatar.jpeg";
+const description = "Portrait of Yunke Li by the waterfront";
+---
+
+<a class="profile-identity__portrait" href={portrait} data-portrait-trigger aria-label={`Enlarge portrait of ${site.name}`} aria-haspopup="dialog" aria-controls="portrait-dialog">
+  <img src={portrait} alt={description} width="160" height="160" decoding="async" />
+</a>
+
+<dialog class="portrait-dialog" id="portrait-dialog" aria-labelledby="portrait-title">
+  <div class="portrait-dialog__header">
+    <h2 id="portrait-title">{site.name}</h2>
+    <form method="dialog"><button class="portrait-dialog__close" type="submit" aria-label="Close portrait" autofocus><span aria-hidden="true">×</span></button></form>
+  </div>
+  <img class="portrait-dialog__image" src={portrait} alt={description} width="886" height="886" decoding="async" />
+</dialog>
+
+<script>
+  const trigger = document.querySelector<HTMLAnchorElement>("[data-portrait-trigger]");
+  const dialog = document.querySelector<HTMLDialogElement>("#portrait-dialog");
+
+  if (trigger && dialog) {
+    trigger.addEventListener("click", (event) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || typeof dialog.showModal !== "function") return;
+      event.preventDefault();
+      dialog.showModal();
+      document.documentElement.classList.add("portrait-is-open");
+    });
+
+    dialog.addEventListener("click", (event) => {
+      if (event.target !== dialog) return;
+      const bounds = dialog.getBoundingClientRect();
+      if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
+    });
+
+    dialog.addEventListener("close", () => {
+      document.documentElement.classList.remove("portrait-is-open");
+    });
+
+    // Browser history can switch the home file while the modal is open.
+    window.addEventListener("hashchange", () => { if (dialog.open) dialog.close(); });
+  }
+</script>

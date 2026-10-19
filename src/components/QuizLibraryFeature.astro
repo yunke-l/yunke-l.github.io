@@ -1,0 +1,49 @@
+---
+import { quizLibrary } from "../data/site";
+import LearningDoodle from "./LearningDoodle.astro";
+
+const consumerIcons = [
+  "M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm4 16h2",
+  "m15 4 5 5M4 20l5-1L21 7a2 2 0 0 0-5-5L4 14v6Z",
+  "M3 4h18v12H3V4Zm5 16h8m-4-4v4"
+];
+---
+
+<section class="quiz-library" aria-labelledby="quiz-library-title">
+  <div class="quiz-library__heading"><h3 id="quiz-library-title">{quizLibrary.title}</h3><LearningDoodle variant="star" /></div>
+  <p class="quiz-library__intro">{quizLibrary.description}</p>
+
+  <figure class="quiz-flow" aria-label="Question data and saved answers flow into a shared quiz renderer, used in student tablets, the question editor, and the teaching dashboard.">
+    <figcaption><span>One package. Three product surfaces.</span><span>React / TypeScript</span></figcaption>
+    <div class="quiz-flow__pipeline">
+      <div class="quiz-flow__input">
+        <span class="quiz-flow__symbol" aria-hidden="true">&#123; &#125;</span>
+        <h4>Question data</h4>
+        <p>Content + saved answers</p>
+      </div>
+
+      <div class="quiz-flow__package">
+        <span class="quiz-flow__badge">Private npm package</span>
+        <svg class="quiz-flow__cube" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="m16 2 13 7v14l-13 7-13-7V9l13-7Zm0 14L3 9m13 7L29 9M16 16v14M9.5 5.5l13 7v6" /></svg>
+        <h4>Quiz renderer</h4>
+        <p class="quiz-flow__count"><strong>8</strong> interaction types</p>
+        <div class="quiz-flow__capabilities"><span>Answer restore</span><span>Answer review</span></div>
+      </div>
+
+      <ul class="quiz-flow__outputs" aria-label="Products using the renderer">
+        {quizLibrary.consumers.map((consumer, index) => (
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={consumerIcons[index]} /></svg>
+            <div><h4>{consumer.title}</h4><p>{consumer.description}</p></div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </figure>
+
+  <ul class="quiz-library__notes" aria-label="My contributions">
+    {quizLibrary.contributions.map((contribution) => (
+      <li><span class="quiz-library__check" aria-hidden="true">✓</span><div><h4>{contribution.title}</h4><p>{contribution.description}</p></div></li>
+    ))}
+  </ul>
+</section>

@@ -1,0 +1,103 @@
+---
+import Icon from "./Icon.astro";
+import { courseworkProjects, site } from "../data/site";
+
+const cardStyles = [
+  { color: "#8cdbad", icon: "M7 2h10v20H7zM10 5h4M11 19h2M10 14l2-3 2 1" },
+  { color: "#b69aff", icon: "M3 5h18v14H3zM3 9h18M7 5v4M12 5v4M17 5v4m-7 3 5 3-5 3z" },
+  { color: "#f3cc7a", icon: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0" },
+  { color: "#52dcff", icon: "m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3Zm0-15v15m6-12v15" },
+  { color: "#94b6ff", icon: "M12 3c-2 3-7 8-7 12a7 7 0 0 0 14 0c0-4-5-9-7-12Zm-3 12a3 3 0 0 0 3 3" },
+  { color: "#ffad98", icon: "M5 8h14v10H5zM12 4v4M10 4h4M2 11v4m20-4v4M8 18v3m8-3v3M9 12h.01M15 12h.01M9 15h6" }
+];
+const coursework = courseworkProjects.map((project, index) => ({
+  ...project,
+  previews: [project.preview, ...(project.additionalPreviews ?? [])],
+  ...cardStyles[index]
+}));
+---
+
+<section id="github" class="workspace-pane" data-workspace-pane data-filename="coursework.json" aria-labelledby="github-title">
+  <section class="page-hero shell">
+    <h1 id="github-title">Course Projects.</h1>
+    <p class="page-hero__lead">
+      Projects I built during my university studies, from web applications to engineering experiments.
+    </p>
+    <div class="hero__actions">
+      <a class="button button--primary" href={site.github} target="_blank" rel="noopener noreferrer">Open GitHub Profile<span class="sr-only"> (opens in a new tab)</span></a>
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="repo-grid">
+      {coursework.map(({ title, period, description, technologies, previews, repositories, color, icon }) => (
+        <article class="repo-card" style={`--repo-accent: ${color}`}>
+          <div class="repo-card__header">
+            <span class="repo-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d={icon} />
+              </svg>
+            </span>
+            {period && <time class="repo-card__date" datetime={period.year} aria-label={`Project period: ${period.label}`}>{period.label}</time>}
+            <span aria-hidden="true"><Icon name="arrow" class="repo-card__arrow" /></span>
+          </div>
+          <div class:list={["repo-card__previews", { "repo-card__previews--multiple": previews.length > 1 }]} style={`--preview-count: ${previews.length}`} data-preview-project={title}>
+          {previews.map((preview) => {
+            const label = "label" in preview ? preview.label : undefined;
+            const previewTitle = label ? `${title} — ${label}` : title;
+            return <a
+            class="repo-card__preview"
+            href={preview.image}
+            data-coursework-preview
+            data-preview-title={previewTitle}
+            data-preview-label={label}
+            data-preview-alt={preview.alt}
+            data-preview-readme={`https://github.com/yunke-l/${repositories[0].name}#readme`}
+            aria-label={previews.length > 1 ? `Enlarge all ${title} screenshots from ${label}` : `Enlarge ${previewTitle} preview`}
+            aria-haspopup="dialog"
+            aria-controls="coursework-preview-dialog"
+          >
+            <img src={preview.thumbnail} alt={preview.alt} width="760" height="480" loading="lazy" decoding="async" />
+            <span class="repo-card__preview-hint"><span aria-hidden="true">＋</span> {label ?? "Enlarge preview"}</span>
+          </a>;
+          })}
+          </div>
+          <h2>
+            <a class="repo-card__title" href={`https://github.com/yunke-l/${repositories[0].name}`} target="_blank" rel="noopener noreferrer">
+              {title}<span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          </h2>
+          <p class="repo-card__description">{description}</p>
+          <ul class="repo-card__tags" aria-label="Technologies">
+            {technologies.map((tag) => <li>{tag}</li>)}
+          </ul>
+          <div class="repo-card__footer">
+            {repositories.map(({ name, label }) => (
+              <a href={`https://github.com/yunke-l/${name}`} target="_blank" rel="noopener noreferrer" aria-label={`${title}: ${label} (opens in a new tab)`}>
+                <Icon name="code" />
+                <span>{label}</span>
+                {repositories.length > 1 && <Icon name="arrow" />}
+              </a>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</section>
+
+<dialog class="coursework-preview-dialog" id="coursework-preview-dialog" aria-labelledby="coursework-preview-title">
+  <div class="coursework-preview-dialog__header">
+    <h2 id="coursework-preview-title">Project preview</h2>
+    <form method="dialog"><button type="submit" aria-label="Close project preview" autofocus><span aria-hidden="true">×</span></button></form>
+  </div>
+  <div class="coursework-preview-dialog__canvas" data-coursework-gallery></div>
+  <div class="coursework-preview-dialog__footer">
+    <span>Project preview</span>
+    <a data-coursework-readme target="_blank" rel="noopener noreferrer">View GitHub README<span class="sr-only"> (opens in a new tab)</span><Icon name="arrow" /></a>
+  </div>
+</dialog>
+
+<script>
+  import "../scripts/coursework-preview";
+</script>

@@ -1,0 +1,16 @@
+---
+import { getWorkspaceFile, workspaceFiles } from "../data/workspace";
+import FileIcon from "./FileIcon.astro";
+const active = getWorkspaceFile(Astro.url.pathname);
+---
+<nav class="editor-tabs" aria-label="Open portfolio files">
+  {workspaceFiles.map((file) => (
+    <div class="editor-tab-item" data-tab-file={file.id} hidden={file.id === "message"}>
+      <a class="editor-tab" href={file.href} data-workspace-file={file.id} aria-current={file.id === active.id ? "page" : undefined}>
+        <FileIcon type={file.type} />{file.label}
+      </a>
+      <button class="editor-tab-close" type="button" data-close-file={file.id} aria-label={`Close ${file.label}`} title={`Close ${file.label}`}><span aria-hidden="true">×</span></button>
+    </div>
+  ))}
+</nav>
+<div class="editor-breadcrumb" aria-label="Current file"><span>portfolio</span><span aria-hidden="true">/</span><span data-current-file>{active.label}</span></div>
