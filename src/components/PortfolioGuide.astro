@@ -96,6 +96,14 @@ const guideName = "YUKI";
   .guide[data-docked="top"] .guide__edge { border-top: 0; border-radius: 0 0 12px 12px; }
   .guide[data-docked="bottom"] .guide__edge { border-bottom: 0; border-radius: 12px 12px 0 0; }
   .guide__edge:hover { color: #bef4cb; background: var(--surface); }
+  :global([data-theme="light"]) .guide__panel { border-color: #bdd1cd; background: linear-gradient(145deg, #f4faf9eb, #e9f0f8eb); box-shadow: 0 20px 54px #24324726, inset 0 1px 0 #fff; }
+  :global([data-theme="light"]) .guide__links :is(a, button) { border-color: var(--line); background: #ffffff60; }
+  :global([data-theme="light"]) .guide__links :is(a, button):hover { border-color: #9bbcab; background: #e4f0e9; }
+  :global([data-theme="light"]) .guide__speech,
+  :global([data-theme="light"]) .guide__edge { border-color: #9bbcab; box-shadow: 0 8px 24px #24324718; }
+  :global([data-theme="light"]) .guide__launcher:hover,
+  :global([data-theme="light"]) .guide__launcher[aria-expanded="true"],
+  :global([data-theme="light"]) .guide__edge:hover { color: #205f3f; }
   .guide__edge-arrow { width: 20px; height: 20px; }
   .guide[data-docked="left"] .guide__edge-arrow { transform: rotate(-90deg); }
   .guide[data-docked="right"] .guide__edge-arrow { transform: rotate(90deg); }

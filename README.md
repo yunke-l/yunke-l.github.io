@@ -1,6 +1,6 @@
 # Yunke Li — Developer Workspace
 
-A personal portfolio built with Astro and TypeScript. The interface takes its cues from a code editor: a file explorer, editor tabs, syntax-highlighted profile, and a small terminal. Electric cyan, muted violet, and a graphite background carry through every route.
+A personal portfolio built with Astro and TypeScript. The interface takes its cues from a code editor: a file explorer, editor tabs, syntax-highlighted profile, and a small terminal. Electric cyan, muted violet, and a graphite background carry through every route. The sun/moon button beside Email switches to a light gray daytime palette. Dark mode is the default; the visitor's choice is saved locally and restored before the first paint on every route.
 
 ## Development
 

@@ -54,7 +54,7 @@ const experienceTechnologyPattern = /\b(React Native|React|TypeScript|npm|WebVie
     </div>
     <div class="resume-skills">
       {skillGroups.map((group, index) => (
-        <article class="resume-skills__row" style={`--skill-color: ${["var(--accent)", "var(--purple)", "#f3cc7a", "var(--green)", "#f3a8c4"][index]}`}>
+        <article class="resume-skills__row" style={`--skill-color: ${["var(--accent)", "var(--purple)", "var(--yellow)", "var(--green)", "var(--pink)"][index]}`}>
           <span class="resume-skills__number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
           <h3>{group.title}</h3>
           <ul aria-label={group.title}>
@@ -122,7 +122,8 @@ const experienceTechnologyPattern = /\b(React Native|React|TypeScript|npm|WebVie
   .resume-greeting::after { content: ""; position: absolute; bottom: 0; inset-inline: 0; height: 1px; background: linear-gradient(90deg, transparent, #52dcff88 35%, #52dcff88 65%, transparent); }
   .resume-greeting__window { position: relative; height: 240px; overflow: hidden; background: radial-gradient(ellipse at 50% 85%, #52dcff12, transparent 65%); }
   .resume-greeting__photo { width: 100%; height: 100%; object-fit: contain; object-position: center bottom; scale: -1 1; transform: rotate(-4deg); transform-origin: 50% 100%; filter: drop-shadow(1px 0 0 #bcefff80) drop-shadow(-1px 0 0 #bcefff80) drop-shadow(0 -1px 0 #bcefff80); animation: resume-peek 900ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both; }
-  .resume-greeting__hello { position: absolute; top: 4px; right: 0; padding: 5px 12px; border: 1px solid #3e7184; border-radius: 10px 10px 10px 2px; color: var(--accent); background: var(--chrome); font: 500 15px/1.5 var(--mono); transform: rotate(7deg); animation: resume-hello 500ms 650ms ease both; }
+  .resume-greeting__hello { position: absolute; top: 4px; right: 0; padding: 5px 12px; border: 1px solid var(--focus-line); border-radius: 10px 10px 10px 2px; color: var(--accent); background: var(--chrome); font: 500 15px/1.5 var(--mono); transform: rotate(7deg); animation: resume-hello 500ms 650ms ease both; }
+  :global([data-theme="light"]) .resume-skills__row:hover { background: var(--surface); }
   @keyframes resume-peek { from { opacity: 0; transform: translateY(55px) rotate(6deg); } to { opacity: 1; transform: translateY(0) rotate(-4deg); } }
   @keyframes resume-hello { from { opacity: 0; transform: translateY(5px) rotate(0); } to { opacity: 1; transform: translateY(0) rotate(7deg); } }
 
@@ -136,11 +137,11 @@ const experienceTechnologyPattern = /\b(React Native|React|TypeScript|npm|WebVie
 
   .resume-skills-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; max-width: none; }
   .resume-skills-heading h2 { margin: 0; }
-  .resume-skills { overflow: hidden; border: 1px solid #2a3b50; border-radius: 8px; background: linear-gradient(110deg, #52dcff06, transparent 45%), var(--chrome); }
+  .resume-skills { overflow: hidden; border: 1px solid var(--panel-line); border-radius: 8px; background: linear-gradient(110deg, #52dcff06, transparent 45%), var(--chrome); }
   .resume-skills__row { display: grid; grid-template-columns: 22px 156px minmax(0, 1fr); align-items: center; gap: 16px; padding: 12px 18px; transition: background-color 160ms, box-shadow 160ms; }
   .resume-skills__row + .resume-skills__row { border-top: 1px solid var(--line); }
   .resume-skills__row:hover { background: #ffffff03; box-shadow: inset 2px 0 var(--skill-color); }
-  .resume-skills__number { color: #70819b; font: var(--font-caption)/1.6 var(--mono); }
+  .resume-skills__number { color: var(--text-soft); font: var(--font-caption)/1.6 var(--mono); }
   .resume-skills h3 { margin: 0; color: var(--skill-color); font: 500 var(--font-small)/1.6 var(--mono); }
   .resume-skills ul { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; margin: 0; padding: 0; list-style: none; }
   .resume-skills li { max-width: 100%; padding: 3px 9px; border: 1px solid color-mix(in srgb, var(--skill-color) 20%, transparent); border-radius: 4px; background: color-mix(in srgb, var(--skill-color) 6%, transparent); color: var(--text); font: var(--font-small)/1.6 var(--mono); overflow-wrap: anywhere; }

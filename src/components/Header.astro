@@ -13,12 +13,20 @@ const contacts = [
 <header class="site-header">
   <div class="site-header__inner">
     <a class="site-brand" href="/" data-workspace-file="about" aria-label={`${site.name} — home`}><span class="brand-mark" aria-hidden="true">[yl]</span><span>yunke<span class="brand-dot">.</span>dev <span class="brand-context">/ workspace</span></span></a>
-    <nav class="social-nav" aria-label="Social and contact links">
+    <nav class="social-nav" aria-label="Social links, contact, and appearance">
       {contacts.map((contact) => (
         <a class="social-link" href={contact.href} aria-label={contact.name === "Email" ? `Email ${site.name}` : `${site.name} on ${contact.name} (opens in a new tab)`} title={contact.name === "Email" ? site.email : contact.name} target={contact.icon === "mail" ? undefined : "_blank"} rel={contact.icon === "mail" ? undefined : "noopener noreferrer"}>
           <SocialIcon name={contact.icon} /><span>{contact.name}</span>
         </a>
       ))}
+      <button class="social-link theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode" title="Switch to light mode" hidden>
+        <svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" /></svg>
+        <svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z" /></svg>
+      </button>
     </nav>
   </div>
 </header>
+
+<script>
+  import "../scripts/theme";
+</script>

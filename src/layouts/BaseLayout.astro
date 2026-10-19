@@ -21,13 +21,22 @@ const isWorkspaceRoute = ["/", "/resume/", "/github/"].includes(Astro.url.pathna
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#080c14" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="dark light" />
+    <script is:inline>
+      // Restore the saved palette before the first paint. New visitors keep the original dark theme.
+      try {
+        if (localStorage.getItem("workspace-theme") === "light") {
+          document.documentElement.dataset.theme = "light";
+          document.querySelector('meta[name="theme-color"]').setAttribute("content", "#eef0f3");
+        }
+      } catch { /* Theme switching also works when storage is unavailable. */ }
+    </script>
     <title>{pageTitle}</title>
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

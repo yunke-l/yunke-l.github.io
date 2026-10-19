@@ -58,6 +58,14 @@ const { variant, class: className } = Astro.props;
 </svg>
 
 <style>
+  :global([data-theme="light"]) .learning-doodle--letters g:nth-child(1) text { fill: var(--accent); }
+  :global([data-theme="light"]) .learning-doodle--letters g:nth-child(2) text { fill: var(--purple); }
+  :global([data-theme="light"]) .learning-doodle--letters g:nth-child(3) text { fill: var(--green); }
+  :global([data-theme="light"]) .learning-doodle--star path { stroke: var(--yellow); }
+  :global([data-theme="light"]) .learning-doodle--star circle { fill: var(--yellow); }
+</style>
+
+<style>
   .learning-doodle { display: block; flex-shrink: 0; pointer-events: none; user-select: none; }
   .learning-doodle--letters { width: 98px; height: 46px; }
   .learning-doodle--letters text { font: 500 18px var(--mono); }
