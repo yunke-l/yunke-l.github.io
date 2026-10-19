@@ -29,13 +29,11 @@ const isWorkspaceRoute = ["/", "/resume/", "/github/"].includes(Astro.url.pathna
     <meta name="theme-color" content="#080c14" />
     <meta name="color-scheme" content="dark light" />
     <script is:inline>
-      // Restore the saved palette before the first paint. New visitors keep the original dark theme.
-      try {
-        if (localStorage.getItem("workspace-theme") === "light") {
-          document.documentElement.dataset.theme = "light";
-          document.querySelector('meta[name="theme-color"]').setAttribute("content", "#eef0f3");
-        }
-      } catch { /* Theme switching also works when storage is unavailable. */ }
+      // Browser-local hours use the visitor's timezone. Recalculate before each first paint.
+      const localHour = new Date().getHours();
+      const theme = localHour >= 6 && localHour < 18 ? "light" : "dark";
+      document.documentElement.dataset.theme = theme;
+      document.querySelector('meta[name="theme-color"]').setAttribute("content", theme === "light" ? "#eef0f3" : "#080c14");
     </script>
     <title>{pageTitle}</title>
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />

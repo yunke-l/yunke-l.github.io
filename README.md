@@ -1,6 +1,8 @@
 # Yunke Li — Developer Workspace
 
-A personal portfolio built with Astro and TypeScript. The interface takes its cues from a code editor: a file explorer, editor tabs, syntax-highlighted profile, and a small terminal. Electric cyan, muted violet, and a graphite background carry through every route. The sun/moon button beside Email switches to a light gray daytime palette. Dark mode is the default; the visitor's choice is saved locally and restored before the first paint on every route.
+A personal portfolio built with Astro and TypeScript. The interface takes its cues from a code editor: a file explorer, editor tabs, syntax-highlighted profile, and a small terminal. Electric cyan, muted violet, and a graphite background carry through every route. Each visit or refresh selects the palette before the first paint using the visitor's local time: light from 06:00 to 17:59, dark from 18:00 to 05:59. The sun/moon button beside Email switches the palette for the current document; refreshing recalculates it from local time.
+
+Every document load starts with only About and Work open. About is selected unless the URL requests Work. Other files open when selected in the explorer or through an in-page link, and can be closed and reopened during the visit. Refreshing any workspace file resets the tabs to About and Work; a URL for another file resets to About as well.
 
 ## Development
 
@@ -24,7 +26,7 @@ pnpm preview
 - `src/data/workspace.ts`: file navigation, terminal text, and editor metadata.
 - `src/components/WorkspaceFiles.astro`: shared workspace containing About, Work, Research, Message, Resume, and Repositories panes. All workspace entry routes render the same panes so switching files updates the URL and active pane without reloading the shell, tabs, or terminal.
 - `src/content/projects/`: Markdown project entries, rendered into `/projects/` and individual detail pages.
-- `src/pages/index.astro`, `src/pages/resume.astro`, and `src/pages/github.astro`: direct entry routes for the shared workspace. Existing links such as `/#work`, `/resume/`, and `/github/` can be shared, refreshed, and navigated with browser history. `ResumeFile.astro` and `RepositoriesFile.astro` hold their content. Without JavaScript, all workspace sections remain readable.
+- `src/pages/index.astro`, `src/pages/resume.astro`, and `src/pages/github.astro`: entry routes for the shared workspace. File selection updates the URL and supports browser history during the visit. Entry or refresh resets to the default tabs described above. `ResumeFile.astro` and `RepositoriesFile.astro` hold their content. Without JavaScript, all workspace sections remain readable.
 - `src/components/`: shared workspace navigation, tabs, terminal, and status bar.
 - `src/styles/global.css`: design tokens, responsive layouts, focus states, and reduced-motion support.
 - `assets/`: existing images and resume PDF, exposed through the tracked `public/assets` symlink.

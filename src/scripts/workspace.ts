@@ -1,8 +1,7 @@
-import { getWorkspaceFile, workspaceFiles } from "../data/workspace";
+import { defaultOpenFiles, getWorkspaceFile, workspaceFiles } from "../data/workspace";
 import { syncWorkspaceTabs } from "./workspace-tabs";
 
 type FileId = (typeof workspaceFiles)[number]["id"];
-const storageKey = "yunke.workspace.open-files.v1";
 const workspace = document.querySelector<HTMLElement>(".workspace-shell");
 
 if (workspace) {
@@ -18,17 +17,7 @@ if (workspace) {
     return workspaceFiles.some((file) => file.id === value);
   }
 
-  function readOpenFiles(): FileId[] {
-    try {
-      const saved: unknown = JSON.parse(sessionStorage.getItem(storageKey) ?? "null");
-      if (Array.isArray(saved) && saved.every(isFileId)) return [...new Set(saved)];
-    } catch {
-      // Navigation still works when browser storage is unavailable.
-    }
-    return workspaceFiles.filter((file) => file.id !== "message").map((file) => file.id);
-  }
-
-  let openFiles = readOpenFiles();
+  const openFiles: FileId[] = [...defaultOpenFiles];
   let activeId: FileId | null = null;
   let scrollFrame = 0;
 
@@ -40,10 +29,6 @@ if (workspace) {
     scrollFrame = requestAnimationFrame(() => {
       window.scrollTo({ top: 0, behavior: "instant" });
     });
-  }
-
-  function saveOpenFiles() {
-    try { sessionStorage.setItem(storageKey, JSON.stringify(openFiles)); } catch { /* Storage is optional. */ }
   }
 
   function announce(message: string) {
@@ -71,12 +56,11 @@ if (workspace) {
   function initialize() {
     const hashId = window.location.pathname === "/" ? window.location.hash.slice(1) : "";
     const requested = isFileId(hashId) ? hashId : getWorkspaceFile(window.location.pathname).id;
-    // An empty workspace survives a refresh; a specific hash opens that file.
-    if (openFiles.length || isFileId(hashId)) {
-      if (!openFiles.includes(requested)) openFiles.push(requested);
-      activeId = requested;
-    } else activeId = null;
-    saveOpenFiles();
+    // Every document load starts with About and Work, including refreshes of other files.
+    activeId = openFiles.includes(requested) ? requested : "about";
+    if (panes.length && activeId !== requested) {
+      history.replaceState(null, "", workspaceFiles.find((file) => file.id === activeId)!.href);
+    }
     render();
     resetScroll();
   }
@@ -84,7 +68,6 @@ if (workspace) {
   function openFile(id: FileId, replace = false, focusContent = false) {
     const file = workspaceFiles.find((file) => file.id === id)!;
     if (!openFiles.includes(id)) openFiles.push(id);
-    saveOpenFiles();
 
     const url = new URL(file.href, window.location.origin);
     const canDisplay = panes.some((pane) => pane.id === id);
@@ -113,7 +96,6 @@ if (workspace) {
     const index = openFiles.indexOf(id);
     if (index < 0) return;
     openFiles.splice(index, 1);
-    saveOpenFiles();
     if (activeId === id) {
       const neighbour = openFiles[index] ?? openFiles[index - 1];
       if (neighbour) openFile(neighbour, true);
@@ -136,19 +118,15 @@ if (workspace) {
     if (!isFileId(id) || !panes.some((pane) => pane.id === id)) return;
     if (!openFiles.includes(id)) openFiles.push(id);
     activeId = id;
-    saveOpenFiles();
     render();
     resetScroll();
   }
 
   initialize();
-  // A directly opened /#research URL can also trigger native fragment scrolling.
+  // A directly opened /#work URL can also trigger native fragment scrolling.
   window.addEventListener("load", resetScroll, { once: true });
   window.addEventListener("hashchange", selectFromLocation);
   window.addEventListener("popstate", selectFromLocation);
-  window.addEventListener("pageshow", (event) => {
-    if (event.persisted) { openFiles = readOpenFiles(); initialize(); }
-  });
 
   document.addEventListener("click", (event) => {
     if (!(event instanceof MouseEvent) || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;

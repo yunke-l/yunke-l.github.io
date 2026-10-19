@@ -7,6 +7,8 @@ export const workspaceFiles = [
   { id: "message", label: "message.md", type: "mail", href: "/#message", language: "Markdown", focus: "Leave a note for Yunke." }
 ] as const;
 
+export const defaultOpenFiles = ["about", "work"] as const;
+
 export function getWorkspaceFile(pathname: string) {
   if (pathname.startsWith("/projects")) return workspaceFiles[1];
   if (pathname.startsWith("/resume")) return workspaceFiles[3];

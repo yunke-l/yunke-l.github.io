@@ -1,11 +1,11 @@
 ---
-import { getWorkspaceFile, workspaceFiles } from "../data/workspace";
+import { defaultOpenFiles, getWorkspaceFile, workspaceFiles } from "../data/workspace";
 import FileIcon from "./FileIcon.astro";
 const active = getWorkspaceFile(Astro.url.pathname);
 ---
 <nav class="editor-tabs" aria-label="Open portfolio files">
   {workspaceFiles.map((file) => (
-    <div class="editor-tab-item" data-tab-file={file.id} hidden={file.id === "message"}>
+    <div class="editor-tab-item" data-tab-file={file.id} hidden={!defaultOpenFiles.some((id) => id === file.id)}>
       <a class="editor-tab" href={file.href} data-workspace-file={file.id} aria-current={file.id === active.id ? "page" : undefined}>
         <FileIcon type={file.type} />{file.label}
       </a>

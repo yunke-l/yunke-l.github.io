@@ -15,13 +15,5 @@ if (themeToggle) {
   themeToggle.addEventListener("click", () => {
     const theme = document.documentElement.dataset.theme === "light" ? "dark" : "light";
     applyTheme(theme);
-    try { localStorage.setItem("workspace-theme", theme); } catch { /* Keep the in-memory choice. */ }
-  });
-
-  // Keep other open pages in step with the visitor's latest choice.
-  window.addEventListener("storage", (event) => {
-    if (event.storageArea === localStorage && (event.key === "workspace-theme" || event.key === null)) {
-      applyTheme(event.newValue === "light" ? "light" : "dark");
-    }
   });
 }
