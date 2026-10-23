@@ -23,6 +23,7 @@ pnpm preview
 ## Content and structure
 
 - `src/data/site.ts`: personal details, experience, skills, education, research, and contact links.
+- `selectedProjects` in `src/data/site.ts`: the Selected Projects cards in `projects.json`, including personal and university projects, repository links, and screenshot previews.
 - `src/data/workspace.ts`: file navigation, terminal text, and editor metadata.
 - `src/components/WorkspaceFiles.astro`: shared workspace containing About, Work, Research, Message, Resume, and Repositories panes. All workspace entry routes render the same panes so switching files updates the URL and active pane without reloading the shell, tabs, or terminal.
 - `src/content/projects/`: Markdown project entries, rendered into `/projects/` and individual detail pages.

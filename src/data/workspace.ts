@@ -3,7 +3,7 @@ export const workspaceFiles = [
   { id: "work", label: "work.tsx", type: "TS", href: "/#work", language: "TypeScript React", focus: "Shared quiz components. Web + mobile. Learning experiences." },
   { id: "research", label: "research.py", type: "Py", href: "/#research", language: "Python", focus: "Exploring the balance between model accuracy and efficiency." },
   { id: "resume", label: "resume.pdf", type: "CV", href: "/resume/", language: "Resume", focus: "Experience, education, and the tools I build with." },
-  { id: "github", label: "coursework.json", type: "{}", href: "/github/", language: "JSON", focus: "Coursework, experiments, and the projects I learned from." },
+  { id: "github", label: "projects.json", type: "{}", href: "/github/", language: "JSON", focus: "Selected personal and university projects, from full-stack platforms to engineering experiments." },
   { id: "message", label: "message.md", type: "mail", href: "/#message", language: "Markdown", focus: "Leave a note for Yunke." }
 ] as const;
 

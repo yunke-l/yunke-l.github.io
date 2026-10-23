@@ -1,8 +1,9 @@
 ---
 import Icon from "./Icon.astro";
-import { courseworkProjects, site } from "../data/site";
+import { selectedProjects, site } from "../data/site";
 
 const cardStyles = [
+  { color: "var(--accent)", icon: "M9 4H5v17h14V4h-4M9 2h6v4H9zM8 11l1 1 2-2M13 11h3M8 16l1 1 2-2M13 16h3" },
   { color: "var(--green)", icon: "M7 2h10v20H7zM10 5h4M11 19h2M10 14l2-3 2 1" },
   { color: "var(--purple)", icon: "M3 5h18v14H3zM3 9h18M7 5v4M12 5v4M17 5v4m-7 3 5 3-5 3z" },
   { color: "var(--yellow)", icon: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0" },
@@ -10,18 +11,18 @@ const cardStyles = [
   { color: "var(--blue)", icon: "M12 3c-2 3-7 8-7 12a7 7 0 0 0 14 0c0-4-5-9-7-12Zm-3 12a3 3 0 0 0 3 3" },
   { color: "var(--peach)", icon: "M5 8h14v10H5zM12 4v4M10 4h4M2 11v4m20-4v4M8 18v3m8-3v3M9 12h.01M15 12h.01M9 15h6" }
 ];
-const coursework = courseworkProjects.map((project, index) => ({
+const projects = selectedProjects.map((project, index) => ({
   ...project,
   previews: [project.preview, ...(project.additionalPreviews ?? [])],
   ...cardStyles[index]
 }));
 ---
 
-<section id="github" class="workspace-pane" data-workspace-pane data-filename="coursework.json" aria-labelledby="github-title">
+<section id="github" class="workspace-pane" data-workspace-pane data-filename="projects.json" aria-labelledby="github-title">
   <section class="page-hero shell">
-    <h1 id="github-title">Course Projects.</h1>
+    <h1 id="github-title">Selected Projects.</h1>
     <p class="page-hero__lead">
-      Projects I built during my university studies, from web applications to engineering experiments.
+      Personal and university projects, from full-stack platforms to mobile apps and engineering experiments.
     </p>
     <div class="hero__actions">
       <a class="button button--primary" href={site.github} target="_blank" rel="noopener noreferrer">Open GitHub Profile<span class="sr-only"> (opens in a new tab)</span></a>
@@ -30,7 +31,7 @@ const coursework = courseworkProjects.map((project, index) => ({
 
   <section class="section shell">
     <div class="repo-grid">
-      {coursework.map(({ title, period, description, technologies, previews, repositories, color, icon }) => (
+      {projects.map(({ title, isCourseProject, period, description, technologies, previews, repositories, color, icon }) => (
         <article class="repo-card" style={`--repo-accent: ${color}`}>
           <div class="repo-card__header">
             <span class="repo-card__icon" aria-hidden="true">
@@ -38,6 +39,7 @@ const coursework = courseworkProjects.map((project, index) => ({
                 <path d={icon} />
               </svg>
             </span>
+            {isCourseProject && <span class="repo-card__category">Course Project</span>}
             {period && <time class="repo-card__date" datetime={period.year} aria-label={`Project period: ${period.label}`}>{period.label}</time>}
             <span aria-hidden="true"><Icon name="arrow" class="repo-card__arrow" /></span>
           </div>

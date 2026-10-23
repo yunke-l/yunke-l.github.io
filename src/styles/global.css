@@ -464,6 +464,7 @@ p { margin: 0 0 1rem; }
   box-shadow: 0 12px 28px #0003;
 }
 .repo-card__header { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 22px; }
+.repo-card__category { min-width: 0; color: var(--text-soft); font: var(--font-caption)/1.5 var(--mono); }
 .repo-card__date { margin-left: auto; padding: 4px 8px; border: 1px solid color-mix(in srgb, var(--repo-accent) 22%, transparent); border-radius: 4px; color: var(--repo-accent); background: color-mix(in srgb, var(--repo-accent) 6%, transparent); font: var(--font-caption)/1.5 var(--mono); white-space: nowrap; }
 .repo-card__icon { display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid color-mix(in srgb, var(--repo-accent) 22%, transparent); border-radius: 10px; color: var(--repo-accent); background: color-mix(in srgb, var(--repo-accent) 8%, transparent); }
 .repo-card__icon svg { width: 24px; height: 24px; }

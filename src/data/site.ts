@@ -18,12 +18,27 @@ export const navItems = [
   { href: "/", label: "Home" },
   { href: "/projects", label: "Work" },
   { href: "/resume", label: "Resume" },
-  { href: "/github", label: "Course Projects" }
+  { href: "/github", label: "Selected Projects" }
 ];
 
-export const courseworkProjects = [
+export const selectedProjects = [
+  {
+    title: "Classwork — Assignment Management Platform",
+    isCourseProject: false,
+    period: { label: "Oct 2026", year: "2026" },
+    description: "Full-stack platform for small teaching groups, with teacher and student workflows for creating assignments, submitting answers, automatic and rubric-based grading, and tracking class progress.",
+    technologies: ["React", "TypeScript", "NestJS", "PostgreSQL", "Playwright"],
+    preview: {
+      thumbnail: "/assets/img/projects/classwork-workspace-thumb.webp",
+      image: "/assets/img/projects/classwork-workspace.webp",
+      alt: "Classwork teacher workspace with class and status filters, assignment drafts, and published work.",
+      source: "https://raw.githubusercontent.com/yunke-l/assignment-management-platform/b79edf22528f587477a17dcf9c25b05ea15bd809/docs/evidence/readme-workspace.png"
+    },
+    repositories: [{ name: "assignment-management-platform", label: "assignment-management-platform" }]
+  },
   {
     title: "Budget Defender Mobile App",
+    isCourseProject: true,
     // GitHub commit history: 2023-11-15 through 2023-12-14 (UTC).
     period: { label: "Nov – Dec 2023", year: "2023" },
     description: "Mobile app for tracking expenses, managing budgets, converting currencies, and organizing receipts.",
@@ -55,6 +70,7 @@ export const courseworkProjects = [
   },
   {
     title: "Movie Reviewer",
+    isCourseProject: true,
     // Frontend and API commit histories: 2023-08-16 through 2023-09-19 (UTC).
     period: { label: "Aug – Sep 2023", year: "2023" },
     description: "Full-stack movie review platform for discovering films, reading reviews, and sharing opinions, with a React frontend and Node.js API.",
@@ -72,6 +88,7 @@ export const courseworkProjects = [
   },
   {
     title: "Soccer Team",
+    isCourseProject: true,
     period: { label: "Spring 2023", year: "2023" },
     description: "Java desktop app for managing a U10 soccer roster and selecting a starting lineup based on player skills and positions.",
     technologies: ["Java", "Swing", "MVC", "JUnit"],
@@ -85,6 +102,7 @@ export const courseworkProjects = [
   },
   {
     title: "Park Fountain Explorer",
+    isCourseProject: true,
     period: { label: "Fall 2022", year: "2022" },
     description: "Python desktop dashboard for exploring Vancouver parks and free drinking fountains by neighbourhood, with charts and location details.",
     technologies: ["Python", "Tkinter", "Matplotlib"],
@@ -98,6 +116,7 @@ export const courseworkProjects = [
   },
   {
     title: "Droplet Image Analysis",
+    isCourseProject: true,
     period: { label: "Spring 2019", year: "2019" },
     description: "Water droplet image analysis using U-Net and SegNet networks for semantic segmentation, implemented in MATLAB R2019a.",
     technologies: ["MATLAB", "U-Net", "SegNet", "Semantic segmentation"],
@@ -111,6 +130,7 @@ export const courseworkProjects = [
   },
   {
     title: "Mini Mobile Robot",
+    isCourseProject: true,
     period: { label: "Fall 2017", year: "2017" },
     description: "Autonomous following robot programmed in C for a 51 MCU, using ultrasonic localization and infrared obstacle avoidance.",
     technologies: ["C", "51 MCU", "Ultrasonic sensors", "Infrared sensors"],
