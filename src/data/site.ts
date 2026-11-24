@@ -168,6 +168,11 @@ export const education = [
   }
 ];
 
+export const awsCertification = {
+  name: "AWS Certified Solutions Architect – Associate",
+  badge: "/assets/img/aws-certified-solutions-architect-associate.png"
+};
+
 export const homeTechnologies = [
   "React", "React Native", "TypeScript", "Taro", "HTML", "CSS",
   "Node.js", "MongoDB", "Firebase", "Python", "PyTorch"

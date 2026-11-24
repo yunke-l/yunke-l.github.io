@@ -7,7 +7,7 @@ import ResumeFile from "./ResumeFile.astro";
 import RepositoriesFile from "./RepositoriesFile.astro";
 import QuizLibraryFeature from "./QuizLibraryFeature.astro";
 import LearningDoodle from "./LearningDoodle.astro";
-import { currentExperience, education, homeTechnologies, researchHighlight, site } from "../data/site";
+import { awsCertification, currentExperience, education, homeTechnologies, researchHighlight, site } from "../data/site";
 
 ---
 
@@ -33,6 +33,10 @@ import { currentExperience, education, homeTechnologies, researchHighlight, site
           <a class="button button--paper" href={site.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Let's connect on LinkedIn (opens in a new tab)"><SocialIcon name="linkedin" />Let's connect</a>
         </div>
         <div class="tech-tags home-technologies" aria-label="Technologies I work with">{homeTechnologies.map((technology) => <span>{technology}</span>)}</div>
+        <p class="home-certification">
+          <img src={awsCertification.badge} width="48" height="48" alt="" decoding="async" />
+          <span>{awsCertification.name}</span>
+        </p>
       </div>
       <div class="profile-code" aria-label="Developer profile">
         <div class="profile-code__header"><span><span class="file-type" aria-hidden="true">TS</span>profile.ts</span></div>
