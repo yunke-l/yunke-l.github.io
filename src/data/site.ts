@@ -23,6 +23,21 @@ export const navItems = [
 
 export const selectedProjects = [
   {
+    title: "CollabBoard",
+    isCourseProject: false,
+    period: { label: "Nov 2026", year: "2026" },
+    description: "A shared task board for small teams. Teammates can assign a card, discuss decisions and attach files on it, then watch it move across everyone’s board in real time.",
+    technologies: ["React", "TypeScript", "NestJS", "PostgreSQL", "Server-Sent Events"],
+    preview: {
+      thumbnail: "/assets/img/projects/collabboard-thumb.webp",
+      image: "/assets/img/projects/collabboard.webp",
+      alt: "CollabBoard’s Website Launch board with six tasks grouped into To Do, In Progress, and Done.",
+      source: "https://github.com/yunke-l/CollabBoard/blob/546861f45cb10cab048f61d24e942dd292af9b6b/media/collabboard-demo-english.mp4"
+    },
+    details: "/projects/collabboard/",
+    repositories: [{ name: "CollabBoard", label: "CollabBoard" }]
+  },
+  {
     title: "Classwork — Assignment Management Platform",
     isCourseProject: false,
     period: { label: "Oct 2026", year: "2026" },

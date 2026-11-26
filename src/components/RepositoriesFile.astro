@@ -3,6 +3,7 @@ import Icon from "./Icon.astro";
 import { selectedProjects, site } from "../data/site";
 
 const cardStyles = [
+  { color: "var(--purple)", icon: "M3 4h18v16H3zM9 4v16m6-16v16M5 8h2m4 0h2m4 0h2M5 12h2" },
   { color: "var(--accent)", icon: "M9 4H5v17h14V4h-4M9 2h6v4H9zM8 11l1 1 2-2M13 11h3M8 16l1 1 2-2M13 16h3" },
   { color: "var(--green)", icon: "M7 2h10v20H7zM10 5h4M11 19h2M10 14l2-3 2 1" },
   { color: "var(--purple)", icon: "M3 5h18v14H3zM3 9h18M7 5v4M12 5v4M17 5v4m-7 3 5 3-5 3z" },
@@ -31,7 +32,7 @@ const projects = selectedProjects.map((project, index) => ({
 
   <section class="section shell">
     <div class="repo-grid">
-      {projects.map(({ title, isCourseProject, period, description, technologies, previews, repositories, color, icon }) => (
+      {projects.map(({ title, isCourseProject, period, description, technologies, previews, repositories, details, color, icon }) => (
         <article class="repo-card" style={`--repo-accent: ${color}`}>
           <div class="repo-card__header">
             <span class="repo-card__icon" aria-hidden="true">
@@ -74,6 +75,7 @@ const projects = selectedProjects.map((project, index) => ({
             {technologies.map((tag) => <li>{tag}</li>)}
           </ul>
           <div class="repo-card__footer">
+            {details && <a href={details}>Project details<Icon name="arrow" /></a>}
             {repositories.map(({ name, label }) => (
               <a href={`https://github.com/yunke-l/${name}`} target="_blank" rel="noopener noreferrer" aria-label={`${title}: ${label} (opens in a new tab)`}>
                 <Icon name="code" />
